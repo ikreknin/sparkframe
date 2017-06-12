@@ -6,6 +6,8 @@
 				<div class="row">
 					<div class="col-sm-12">
 
+<h2>{comments_text}</h2>
+
 {pagination}
 
 <br /><br />

@@ -36,6 +36,10 @@ class Tagcontroller
 			$footer_3_hook = $this->registry->library('hook')->call('footer_3_hook');
 			$this->registry->library('template')->page()->addTag('footer_3_hook', $footer_3_hook);
 
+			$this->registry->library('template')->page()->addTag('footer_4_hook', '');
+			$footer_3_hook = $this->registry->library('hook')->call('footer_4_hook');
+			$this->registry->library('template')->page()->addTag('footer_4_hook', $footer_4_hook);
+
 			$this->registry->library('template')->page()->addTag('before_closing_body_tag_hook', '');
 			$before_closing_body_tag_hook = $this->registry->library('hook')->call('before_closing_body_tag_hook');
 			$this->registry->library('template')->page()->addTag('before_closing_body_tag_hook', $before_closing_body_tag_hook);
@@ -92,8 +96,21 @@ class Tagcontroller
 			$this->registry->library('template')->page()->addTag('VIEWDIR', FWURL . APPDIR . '/views/' . $this->registry->setting('theme') . '/');
 			$this->registry->library('template')->page()->addTag('site_url', FWURL);
 			$this->registry->library('template')->page()->addTag('CMS0', $this->registry->setting('settings_site0'));
+
+			$this->registry->library('template')->addTemplateSegment('top_1_tpl', 'top_1_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('top_2_tpl', 'top_2_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('sidebar_1_tpl', 'sidebar_1_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('sidebar_2_tpl', 'sidebar_2_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('sidebar_3_tpl', 'sidebar_3_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('sidebar_4_tpl', 'sidebar_4_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('bottom_top_tpl', 'bottom_top_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('bottom_1_tpl', 'bottom_1_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('bottom_2_tpl', 'bottom_2_tpl.tpl');
 			$this->registry->library('template')->addTemplateSegment('top_bar_tpl', 'top_bar_tpl.tpl');
 			$this->registry->library('template')->addTemplateSegment('top_menu_tpl', 'top_menu_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('bottom_bar_tpl', 'bottom_bar_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('slider_tpl', 'slider_tpl.tpl');
+
 			$this->registry->library('template')->page()->addTag('cms_title', $this->registry->setting('settings_cms_title'));
 			$this->registry->library('template')->page()->addTag('charset', $this->registry->setting('settings_charset'));
 			$this->registry->library('template')->page()->addTag('metakeywords', $this->registry->setting('settings_metakeywords'));

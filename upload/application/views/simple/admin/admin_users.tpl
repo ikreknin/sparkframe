@@ -6,6 +6,8 @@
 				<div class="row">
 					<div class="col-sm-12">
 
+<h2>{manage_users}</h2>
+
 <p>{pagination}</p>
 <br />
 

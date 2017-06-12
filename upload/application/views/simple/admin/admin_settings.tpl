@@ -12,7 +12,9 @@
 
 <input type="hidden" name='settings_id' value='{settings_id}'>
 
-<h2>{system}</h2>
+<h2>{settings_text}</h2>
+
+<h3>{system}</h3>
 
 {settings_cms_title_text}
 <br />
@@ -99,15 +101,6 @@
 <textarea name="settings_notes" cols="50" rows="5">{settings_notes}</textarea>
 <br /><br />
 
-{editor_text}
-<br />
-<select name="settings_editor">
-<option value="n" {if '{settings_editor}'=='n'}selected="selected"{/if}>HTML</option>
-<option value="t" {if '{settings_editor}'=='t'}selected="selected"{/if}>TinyMCE</option>
-<option value="c" {if '{settings_editor}'=='c'}selected="selected"{/if}>CKEditor</option>
-</select>
-<br /><br />
-
 {settings_cached_text}
 <br />
 <select name="settings_cached">
@@ -118,7 +111,16 @@
 
 <hr>
 
-<h2>{blog_text}</h2>
+<h3>{blog_text}</h3>
+
+{editor_text}
+<br />
+<select name="settings_editor">
+<option value="n" {if '{settings_editor}'=='n'}selected="selected"{/if}>HTML</option>
+<option value="t" {if '{settings_editor}'=='t'}selected="selected"{/if}>TinyMCE</option>
+<option value="c" {if '{settings_editor}'=='c'}selected="selected"{/if}>CKEditor</option>
+</select>
+<br /><br />
 
 {settings_guests_allowed_text}
 <br />
@@ -170,7 +172,7 @@
 <input style="width: 200px" type='text' name='settings_comments_per_page' value='{settings_comments_per_page}' />
 <br /><br />
 
-Aksimet
+Akismet
 <br />
 <input style="width: 200px" type='text' name='spam_api_key' value='{spam_api_key}' />
 <br /><br />
@@ -190,7 +192,7 @@ Aksimet
 
 <hr>
 
-<h2>{users_text}</h2>
+<h3>{users_text}</h3>
 
 {settings_users_per_page_text}
 <br />
@@ -228,7 +230,7 @@ Aksimet
 
 <hr>
 
-<h2>{forum_text}</h2>
+<h3>{forum_text}</h3>
 
 {settings_forum_topics_per_page_text}
 <br />
@@ -242,7 +244,7 @@ Aksimet
 
 <hr>
 
-<h2>{shop_text}</h2>
+<h3>{shop_text}</h3>
 
 {settings_dl_period_text}
 <br />

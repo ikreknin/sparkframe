@@ -234,6 +234,7 @@ class Database
 		{
 			$value = str_replace('{', '&#123;', $value);
 			$value = str_replace('}', '&#125;', $value);
+			$value = str_replace("'", "&#039;", $value);
 			$update .= "`" . $field . "`='{$value}',";
 		}
 		$update = substr($update, 0, - 1);
@@ -253,6 +254,8 @@ class Database
 		{
 			$value = str_replace('{', '&#123;', $value);
 			$value = str_replace('}', '&#125;', $value);
+			$value = str_replace("'", "&#039;", $value);
+//			$value = str_replace("///'", "/'", $value);
 			$update .= "`" . $field . "`='{$value}',";
 		}
 		$update = substr($update, 0, - 1);
@@ -275,6 +278,7 @@ class Database
 			$fields .= "`$f`,";
 			$v = str_replace('{', '&#123;', $v);
 			$v = str_replace('}', '&#125;', $v);
+			$value = str_replace("'", "&#039;", $value);
 			$values .= (is_numeric($v) && (intval($v) == $v)) ? $v . "," : "'$v',";
 		}
 		$fields = substr($fields, 0, - 1);
@@ -294,6 +298,7 @@ class Database
 			$fields .= "`$f`,";
 			$v = str_replace('{', '&#123;', $v);
 			$v = str_replace('}', '&#125;', $v);
+			$value = str_replace("'", "&#039;", $value);
 			$values .= (is_numeric($v) && (intval($v) == $v)) ? $v . "," : "'$v',";
 		}
 		$fields .= "`" . $table . "_sys`";

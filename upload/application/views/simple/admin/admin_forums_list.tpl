@@ -6,6 +6,8 @@
 				<div class="row">
 					<div class="col-sm-12">
 
+<h2>{forums_text}</h2>
+
 {if '{forums_available}'=='y'}<ul>{/if}
 <!-- START forums -->
 <li>

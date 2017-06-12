@@ -15,7 +15,7 @@ class jssorslider_widget
 	public function index($string = '')
 	{
 		$result = '';
-		$result .= '<script src="' . FWURL . 'application/widgets/jssorslider_widget/js/jquery.nivo.slider.pack.js" type="text/javascript"></script>';
+		$result .= '<script src="' . FWURL . 'application/widgets/jssorslider_widget/js/jssor.slider.mini.js" type="text/javascript"></script>';
 		$result .= '    <!-- Caption Style -->
     <style> 
         .captionOrange, .captionBlack

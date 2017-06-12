@@ -276,9 +276,11 @@ class Helper
 	public function simpleCatList($data, $seg = '')
 	{
 		$tree = array(0 => array());
+		$tree_url = array(0 => array());
 		foreach ($data as $k => $v)
 		{
 			$tree[$v['category_id']][0] = $v['category_name'];
+			$tree_url[$v['category_id']][0] = $v['category_url_name'];
 			if (!is_null($v['parent_id']))
 			{
 				if (!isset ($tree[$v['parent_id']]))
@@ -296,7 +298,7 @@ class Helper
 		$html = '<ul>';
 		foreach ($tree[0] as $row)
 		{
-			$html .= $this->simpleDrawBranch($row, $tree, $seg, true);
+			$html .= $this->simpleDrawBranch($row, $tree, $tree_url, $seg, true);
 		}
 		$html .= '</ul>';
 		return $html;
@@ -336,11 +338,14 @@ class Helper
 		return (isset ($array [$startInd]) ? $this->findFreeIndex($array, $startInd + 1) : $startInd);
 	}
 
-	private function simpleDrawBranch($row, $tree, $seg, $isRoot = false)
+	private function simpleDrawBranch($row, $tree, $tree_url, $seg, $isRoot = false)
 	{
 		$branch = $tree[$row];
 		$name = $branch[0];
 		unset ($branch[0]);
+		$branch_url = $tree_url[$row];
+		$url = $branch_url[0];
+		unset ($branch_url[0]);
 		$strong1 = '';
 		$strong2 = '';
 		if ($row == $seg)
@@ -348,13 +353,20 @@ class Helper
 			$strong1 = '<strong>';
 			$strong2 = '</strong>';
 		}
+if($url == '')
+{
 		$html = '<li><a href="' . FWURL . Registry :: setting('settings_site0') . '/category/' . $row . '">' . $strong1 . $name . $strong2 . '</a>';
+}
+else 
+{
+		$html = '<li><a href="' . FWURL . Registry :: setting('settings_site0') . '/category/' . $url . '">' . $strong1 . $name . $strong2 . '</a>';
+}
 		if (count($branch) > 0)
 		{
 			$html .= '<ul>';
 			foreach ($branch as $row)
 			{
-				$html .= $this->simpleDrawBranch($row, $tree, $seg);
+				$html .= $this->simpleDrawBranch($row, $tree, $tree_url, $seg);
 			}
 			$html .= '</ul>';
 		}
@@ -367,7 +379,7 @@ class Helper
 		$branch = $tree[$row];
 		$name = $branch[0];
 		unset ($branch[0]);
-		$html = '<li><span class="cat_name"><a href="' . FWURL . Registry :: setting('settings_site0') . 'category/' . $row . '">' . $name . '</a></span> |
+		$html = '<li><span class="cat_name"><a href="' . FWURL . Registry :: setting('settings_site0') . '/category/' . $row . '">' . $name . '</a></span> |
 			<span class="cat_link"><a href="' . FWURL . 'admin/create_category/' . $row . '">' . Registry :: library('lang')->line('create_subcategory') . '</a></span> |
 			<span class="cat_link"><a href="' . FWURL . 'admin/edit_category/' . $row . '">' . Registry :: library('lang')->line('edit') . '</a></span> |
 			<span class="cat_link"><a onclick="return deletechecked();" href="' . FWURL . 'admin/delete_category/' . $row . '">' . Registry :: library('lang')->line('delete') . '</a></span> |

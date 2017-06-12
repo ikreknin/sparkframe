@@ -88,10 +88,6 @@ class Latest_articles_frontpage_widget
 				}
 $result .= '	<article class="post clearfix">
 
-	<figure class="featured-thumb">
-		<a href="#"><img src="' . FWURL . APPDIR . '/views/' . $theme . '/images/samples/img220x156.jpg" alt=""></a>
-	</figure>
-
 <div class="post-body">
 		<header class="post-header">
 			<h3><a href="' . $v["site_url"] . $v["CMS0"] . 'site/more/' . $more . '">' . $v["title"] . '</a></h3>

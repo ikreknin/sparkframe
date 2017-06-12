@@ -37,6 +37,10 @@ class Sitecontroller
 			$footer_3_hook = $this->registry->library('hook')->call('footer_3_hook');
 			$this->registry->library('template')->page()->addTag('footer_3_hook', $footer_3_hook);
 
+			$this->registry->library('template')->page()->addTag('footer_4_hook', '');
+			$footer_3_hook = $this->registry->library('hook')->call('footer_4_hook');
+			$this->registry->library('template')->page()->addTag('footer_4_hook', $footer_4_hook);
+
 			$this->registry->library('template')->page()->addTag('before_closing_body_tag_hook', '');
 			$before_closing_body_tag_hook = $this->registry->library('hook')->call('before_closing_body_tag_hook');
 			$this->registry->library('template')->page()->addTag('before_closing_body_tag_hook', $before_closing_body_tag_hook);
@@ -171,8 +175,21 @@ class Sitecontroller
 			$copyright_years = $this->registry->library('helper')->copyright_years($startyear);
 			$this->registry->library('template')->page()->addTag('copyright_years', $copyright_years);
 			$this->registry->library('template')->page()->addTag('contact', $this->registry->library('lang')->line('contact'));
+
+			$this->registry->library('template')->addTemplateSegment('top_1_tpl', 'top_1_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('top_2_tpl', 'top_2_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('sidebar_1_tpl', 'sidebar_1_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('sidebar_2_tpl', 'sidebar_2_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('sidebar_3_tpl', 'sidebar_3_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('sidebar_4_tpl', 'sidebar_4_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('bottom_top_tpl', 'bottom_top_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('bottom_1_tpl', 'bottom_1_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('bottom_2_tpl', 'bottom_2_tpl.tpl');
 			$this->registry->library('template')->addTemplateSegment('top_bar_tpl', 'top_bar_tpl.tpl');
 			$this->registry->library('template')->addTemplateSegment('top_menu_tpl', 'top_menu_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('bottom_bar_tpl', 'bottom_bar_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('slider_tpl', 'slider_tpl.tpl');
+
 			$urlSegments = $this->registry->getURLSegments();
 			$this->seg_1 = $this->registry->library('db')->sanitizeData($urlSegments[1]);
 			$this->seg_2 = $this->registry->library('db')->sanitizeData($urlSegments[2]);
@@ -1159,15 +1176,29 @@ $(document).ready(function () {
 		$this->registry->library('template')->page()->addTag('pagetitle', $this->registry->setting('settings_cms_title'));
 		if ($this->registry->library('authenticate')->isLoggedIn() == true || $this->registry->setting('settings_guests_allowed') == 1)
 		{
+if (is_numeric($this->seg_2))
+{
 			$sql = 'SELECT *
 				FROM ' . $this->prefix . 'categories
 				WHERE categories_sys = "' . $this->sys_cms . '"
 				AND category_id =' . $this->seg_2;
+}
+else
+{
+			$sql = 'SELECT *
+				FROM ' . $this->prefix . 'categories
+				WHERE categories_sys = "' . $this->sys_cms . '"
+				AND category_url_name = "' . $this->seg_2 . '"';
+}
+
 			$this->registry->library('db')->execute($sql);
+$curent_category_id = '';
 			if ($this->registry->library('db')->numRows() != 0)
 			{
 				$data = $this->registry->library('db')->getRows();
 				$this->registry->library('template')->page()->addTag('current_category', $data['category_name']);
+
+$curent_category_id = $data['category_id'];
 			}
 			if ($this->seg_3 != 'page')
 			{
@@ -1180,7 +1211,7 @@ $(document).ready(function () {
 					LEFT JOIN ' . $this->prefix . 'comments ON ' . $this->prefix . 'comments.com_article_id = ' . $this->prefix . 'articles.article_id AND comments_sys = "' . $this->sys_cms . '"
 					LEFT JOIN ' . $this->prefix . 'art_cats ON ' . $this->prefix . 'art_cats.ac_art_id = ' . $this->prefix . 'articles.article_id AND art_cats_sys = "' . $this->sys_cms . '"
 					WHERE article_visible = 2
-					AND ac_cats_id = ' . $this->seg_2 . '
+					AND ac_cats_id = ' . $curent_category_id . '
 					AND articles_sys = "' . $this->sys_cms . '"
 					GROUP BY article_id
 					ORDER BY article_id
@@ -1193,7 +1224,7 @@ $(document).ready(function () {
 					LEFT JOIN ' . $this->prefix . 'users ON ' . $this->prefix . 'users.users_id = ' . $this->prefix . 'articles.author_id
 					LEFT JOIN ' . $this->prefix . 'categories ON ' . $this->prefix . 'categories.category_id = ' . $this->prefix . 'articles.categories AND categories_sys = "' . $this->sys_cms . '"
 					LEFT JOIN ' . $this->prefix . 'comments ON ' . $this->prefix . 'comments.com_article_id = ' . $this->prefix . 'articles.article_id AND comments_sys = "' . $this->sys_cms . '"
-					WHERE categories = ' . $this->seg_2 . '
+					WHERE categories = ' . $curent_category_id . '
 					AND article_visible = 2
 					AND articles_sys = "' . $this->sys_cms . '"
 					GROUP BY article_id
@@ -1215,7 +1246,7 @@ $(document).ready(function () {
 					LEFT JOIN ' . $this->prefix . 'comments ON ' . $this->prefix . 'comments.com_article_id = ' . $this->prefix . 'articles.article_id AND comments_sys = "' . $this->sys_cms . '"
 					LEFT JOIN ' . $this->prefix . 'art_cats ON ' . $this->prefix . 'art_cats.ac_art_id = ' . $this->prefix . 'articles.article_id AND art_cats_sys = "' . $this->sys_cms . '"
 					WHERE article_visible = 2
-					AND ac_cats_id = ' . $this->seg_2 . '
+					AND ac_cats_id = ' . $curent_category_id . '
 					AND articles_sys = "' . $this->sys_cms . '"
 					GROUP BY article_id
 					ORDER BY article_id
@@ -1229,7 +1260,7 @@ $(document).ready(function () {
 					LEFT JOIN ' . $this->prefix . 'categories ON ' . $this->prefix . 'categories.category_id = ' . $this->prefix . 'articles.categories AND categories_sys = "' . $this->sys_cms . '"
 					LEFT JOIN ' . $this->prefix . 'comments ON ' . $this->prefix . 'comments.com_article_id = ' . $this->prefix . 'articles.article_id AND comments_sys = "' . $this->sys_cms . '"
 					WHERE article_visible = 2
-					AND categories = ' . $this->seg_2 . '
+					AND categories = ' . $curent_category_id . '
 					AND articles_sys = "' . $this->sys_cms . '"
 					GROUP BY article_id
 					ORDER BY article_id
@@ -1283,7 +1314,7 @@ $(document).ready(function () {
 			}
 			$cache = $this->registry->library('db')->cacheData($articles);
 			$this->registry->library('template')->page()->addTag('articles', array('DATA', $cache));
-			$condition = 'WHERE categories = ' . $this->seg_2;
+			$condition = 'WHERE categories = ' . $curent_category_id;
 			$pagination = $this->registry->library('paginate')->createLinksSys('articles', $this->registry->setting('settings_rows_per_page'), 4, $this->registry->setting('settings_site0') . '/category/' . $this->seg_2 . '/page', $condition);
 			$this->registry->library('template')->page()->addTag('pagination', $pagination);
 			$categories_available = '';
@@ -1296,7 +1327,7 @@ $(document).ready(function () {
 			{
 				$categories_available = 'y';
 				$data = $this->registry->library('db')->rowsFromCache($cache);
-				$html = $this->registry->library('helper')->simpleCatList($data, $this->seg_2);
+				$html = $this->registry->library('helper')->simpleCatList($data, $curent_category_id);
 			}
 			$this->registry->library('template')->page()->addTag('simple_categories_list', $html);
 			$this->registry->library('template')->page()->addTag('categories_available', $categories_available);

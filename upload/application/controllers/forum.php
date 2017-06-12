@@ -37,6 +37,10 @@ class Forumcontroller
 			$footer_3_hook = $this->registry->library('hook')->call('footer_3_hook');
 			$this->registry->library('template')->page()->addTag('footer_3_hook', $footer_3_hook);
 
+			$this->registry->library('template')->page()->addTag('footer_4_hook', '');
+			$footer_3_hook = $this->registry->library('hook')->call('footer_4_hook');
+			$this->registry->library('template')->page()->addTag('footer_4_hook', $footer_4_hook);
+
 			$this->registry->library('template')->page()->addTag('before_closing_body_tag_hook', '');
 			$before_closing_body_tag_hook = $this->registry->library('hook')->call('before_closing_body_tag_hook');
 			$this->registry->library('template')->page()->addTag('before_closing_body_tag_hook', $before_closing_body_tag_hook);
@@ -186,8 +190,21 @@ class Forumcontroller
 			$this->registry->library('template')->page()->addTag('welcome', $this->registry->library('lang')->line('welcome'));
 			$this->registry->library('template')->page()->addTag('registration', $this->registry->library('lang')->line('registration'));
 			$this->registry->library('template')->page()->addTag('contact', $this->registry->library('lang')->line('contact'));
+
+			$this->registry->library('template')->addTemplateSegment('top_1_tpl', 'top_1_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('top_2_tpl', 'top_2_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('sidebar_1_tpl', 'sidebar_1_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('sidebar_2_tpl', 'sidebar_2_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('sidebar_3_tpl', 'sidebar_3_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('sidebar_4_tpl', 'sidebar_4_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('bottom_top_tpl', 'bottom_top_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('bottom_1_tpl', 'bottom_1_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('bottom_2_tpl', 'bottom_2_tpl.tpl');
 			$this->registry->library('template')->addTemplateSegment('top_bar_tpl', 'top_bar_tpl.tpl');
 			$this->registry->library('template')->addTemplateSegment('top_menu_tpl', 'top_menu_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('bottom_bar_tpl', 'bottom_bar_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('slider_tpl', 'slider_tpl.tpl');
+
 			$urlSegments = $this->registry->getURLSegments();
 			$this->seg_1 = $this->registry->library('db')->sanitizeData($urlSegments[1]);
 			$this->seg_2 = $this->registry->library('db')->sanitizeData($urlSegments[2]);

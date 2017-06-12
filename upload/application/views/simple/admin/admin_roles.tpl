@@ -5,6 +5,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12">
+<h2>{manage_roles}</h2>
 
 <table>
 <!-- START roles -->

@@ -12,19 +12,18 @@
 	<meta name="author" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="icon" href="favicon.ico">
-	<link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="icon" href="{site_url}application/views/simple/admin/images/favicon.ico">
+	<link rel="apple-touch-icon" href="{site_url}application/views/simple/admin/images/apple-touch-icon.png">
 
-        <link rel="stylesheet" href="{site_url}application/views/simple/css/bootstrap.min.css">
-        <link href="{site_url}application/views/simple/css/navbar.css" rel="stylesheet">
-	<link rel="stylesheet" href="{VIEWDIR}css/font-awesome.min.css" media="screen" />
-	<link href="{site_url}application/views/simple/css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="{site_url}application/views/simple/admin/css/bootstrap.min.css">
+        <link href="{site_url}application/views/simple/admin/css/navbar.css" rel="stylesheet">
+	<link rel="stylesheet" href="{VIEWDIR}admin/css/font-awesome.min.css" media="screen" />
+	<link href="{site_url}application/views/simple/admin/css/style.css" rel="stylesheet">
 
-        <script src="{site_url}application/views/simple/js/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="{site_url}application/views/simple/admin/js/vendor/modernizr-2.6.2.min.js"></script>
 
 {jquery}
 {editor}
-{tinybrowser}
 {bbcodeeditor}
 <script type="text/javascript">
 	function deletechecked()

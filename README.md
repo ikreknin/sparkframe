@@ -22,7 +22,7 @@ Another CMS
     Installer and updater
     GNU GPL v.3
     White Label
-    * Online Demo Website: http://sparkframe.id.lv/
-    * XAMPP Offline Demo Download: http://sparkframe.id.lv/xampp/xampp_sf310_demo.zip
+    * Online Demo Website: [http://sparkframe.id.lv/](http://sparkframe.id.lv/)
+    * XAMPP Offline Demo Download: [http://sparkframe.id.lv/xampp/xampp_sf310_demo.zip](http://sparkframe.id.lv/xampp/xampp_sf310_demo.zip)
 
-( https://sourceforge.net/projects/sparkframe/ )
+( [https://sourceforge.net/projects/sparkframe/](https://sourceforge.net/projects/sparkframe/) )

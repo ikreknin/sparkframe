@@ -6,6 +6,8 @@
 				<div class="row">
 					<div class="col-sm-12">
 
+<h2>{edit_shop}</h2>
+
 {if '{error_message}'!=''}
 <h3>{error_message}</h3>
 {/if}

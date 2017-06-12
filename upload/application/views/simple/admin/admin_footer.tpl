@@ -19,8 +19,8 @@
 		</footer>
 
 {highlighter}
-        <script src="{site_url}application/views/simple/js/plugins.js"></script>
-        <script src="{site_url}application/views/simple/js/main.js"></script>
+        <script src="{site_url}application/views/simple/admin/js/plugins.js"></script>
+        <script src="{site_url}application/views/simple/admin/js/main.js"></script>
 {before_closing_body_tag_hook}
 {ckfinder_end}
     </body>

@@ -6,6 +6,8 @@
 				<div class="row">
 					<div class="col-sm-12">
 
+<h2>{manage_role}</h2>
+
 <form action="{site_url}admin/editing_role/{role_id}" method="post">
 
 <br />
@@ -16,14 +18,14 @@
 
 <table border="0" cellpadding="5" cellspacing="0">
 
-<tr><th></th><th>{allow}</th><th>{deny}</th><th>{ignore}</th></tr>
+<tr><th></th><th>&nbsp;{allow} &nbsp;</th><th>{deny} &nbsp;</th><th>{ignore}</th></tr>
 
 <!-- START perms -->
 <tr>
 <td><label>{perm_name}</label></td>
-<td><input type="radio" name="perm_{perm_id}" id="perm_{perm_id}_1" value="1" {checked_1} /></td>
-<td><input type="radio" name="perm_{perm_id}" id="perm_{perm_id}_0" value="0" {checked_0} /></td>
-<td><input type="radio" name="perm_{perm_id}" id="perm_{perm_id}_x" value="x" {checked_x} /></td>
+<td>&nbsp; <input type="radio" name="perm_{perm_id}" id="perm_{perm_id}_1" value="1" {checked_1} /></td>
+<td>&nbsp; <input type="radio" name="perm_{perm_id}" id="perm_{perm_id}_0" value="0" {checked_0} /></td>
+<td>&nbsp; <input type="radio" name="perm_{perm_id}" id="perm_{perm_id}_x" value="x" {checked_x} /></td>
 </tr>
 <!-- END perms -->
 

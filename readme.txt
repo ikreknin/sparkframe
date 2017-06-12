@@ -152,3 +152,20 @@ Version history:
 - 3.0.9
 1. Currency selection in Settings
 2. PayPal uses the currency set in Settings
+- 3.1.0
+1. Front-end 'Bootstrap' skin added.
+2. Typical names for .tpl files now:
+	top_1_tpl
+	top_2_tpl
+	sidebar_1_tpl
+	sidebar_2_tpl
+	sidebar_3_tpl
+	sidebar_4_tpl
+	bottom_top_tpl
+	bottom_1_tpl
+	bottom_2_tpl
+	top_bar_tpl
+	top_menu_tpl
+	bottom_bar_tpl
+	slider_tpl
+3. Javascript for TAGs improved (now it can delete tags in the input lines by clicking them)

@@ -6,6 +6,8 @@
 				<div class="row">
 					<div class="col-sm-12">
 
+<h2>{modules_text}</h2>
+
 <!-- START modules -->
 <p><a href="{site_url}{mod_file_name}"><b>{mod_file_name}</b></a> | 
 {if '{mod_installed}'=='0'}<a href="{site_url}{mod_file_name}/install"><font color="green">Install</font></a> {/if}

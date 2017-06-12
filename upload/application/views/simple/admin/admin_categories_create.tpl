@@ -6,7 +6,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 
-<br />
+<h2>{create_category}</h2>
 
 {if '{error_message}'!=''}
 <h3>{error_message}</h3>

@@ -6,6 +6,8 @@
 				<div class="row">
 					<div class="col-sm-12">
 
+<h2>{manage_perms}</h2>
+
 <table>
 <!-- START perms -->
 <tr><td><a href="{site_url}admin/edit_permission/{perm_id}">{perm_name}</a>{if '{perm_locked}'=='1'} [{protected}]{/if}</td></tr>

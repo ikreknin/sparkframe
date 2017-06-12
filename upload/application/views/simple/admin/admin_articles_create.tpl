@@ -6,6 +6,8 @@
 				<div class="row">
 					<div class="col-sm-12">
 
+<h2>{create_article}</h2>
+
 {if '{error_message}'!=''}
 <p class="validation">{error_message}</p>
 {/if}

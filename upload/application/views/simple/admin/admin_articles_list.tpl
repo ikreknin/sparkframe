@@ -6,6 +6,8 @@
 				<div class="row">
 					<div class="col-sm-12">
 
+<h2>{edit_articles}</h2>
+
 {pagination}
 
 <!-- START articles -->

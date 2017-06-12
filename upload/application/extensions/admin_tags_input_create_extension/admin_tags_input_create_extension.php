@@ -123,18 +123,55 @@ class Admin_tags_input_create_extension
 $result .= '$(document).ready(function(){
   $(document.getElementById("' . $tag_name . '")).click(function(e){
     $("#tag_list").val(function(i,origText){
-	e.preventDefault();
-    $var = "|" + "' . $tag_name . '";
-    $var = origText + $var;
-    if ($var.charAt(0) == "|")
-    {
-    	$var = $var.substring(1);
-    }
-	while ($var.indexOf("||") > -1)
-  	{
-  		$var = $var.replace("||","|");
-  	}
-    return $var; 
+		e.preventDefault();
+
+		$del = 0;
+
+		if (origText == "' . $tag_name . '")
+		{
+			$del = 1;
+			$var = "";
+		}
+
+		if (origText.indexOf("|' . $tag_name . '|") > -1)
+		{
+			$del = 2;
+			$var = origText.replace("|' . $tag_name . '|", "|");
+		}
+
+		$beginning = "' . $tag_name . '|";
+		$b = $beginning.length;
+		$full = origText.length;
+		if($beginning == origText.slice(0, $b))
+		{
+			$del = 3;
+			$var = origText.slice($b, $full);
+		}
+
+		$end = "|' . $tag_name . '";
+		$e = $end.length;
+		$full = origText.length;
+		if($end == origText.slice($full - $e, $full))
+		{
+			$del = 4;
+			$var = origText.slice(0, $full - $e);
+		}
+
+		if ($del == 0)
+		{
+    		$var = "|" + "' . $tag_name . '";
+	    	$var = origText + $var;
+    		if ($var.charAt(0) == "|")
+    		{
+    			$var = $var.substring(1);
+    		}
+    	}
+
+		while ($var.indexOf("||") > -1)
+  		{
+  			$var = $var.replace("||","|");
+  		}
+    	return $var; 
     });
   });
 });';

@@ -39,6 +39,10 @@ class Admincontroller
 			$footer_3_hook = $this->registry->library('hook')->call('footer_3_hook');
 			$this->registry->library('template')->page()->addTag('footer_3_hook', $footer_3_hook);
 
+			$this->registry->library('template')->page()->addTag('footer_4_hook', '');
+			$footer_3_hook = $this->registry->library('hook')->call('footer_4_hook');
+			$this->registry->library('template')->page()->addTag('footer_4_hook', $footer_4_hook);
+
 			$this->registry->library('template')->page()->addTag('before_closing_body_tag_hook', '');
 			$before_closing_body_tag_hook = $this->registry->library('hook')->call('before_closing_body_tag_hook');
 			$this->registry->library('template')->page()->addTag('before_closing_body_tag_hook', $before_closing_body_tag_hook);
@@ -58,8 +62,21 @@ class Admincontroller
 			$this->registry->library('template')->page()->addTag('charset', $this->registry->setting('settings_charset'));
 			$this->registry->library('template')->page()->addTag('metakeywords', $this->registry->setting('settings_metakeywords'));
 			$this->registry->library('template')->page()->addTag('metadescription', $this->registry->setting('settings_metadescription'));
+
+			$this->registry->library('template')->addTemplateSegment('top_1_tpl', 'admin/admin_top_1_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('top_2_tpl', 'admin/admin_top_2_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('sidebar_1_tpl', 'admin/admin_sidebar_1_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('sidebar_2_tpl', 'admin/admin_sidebar_2_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('sidebar_3_tpl', 'admin/admin_sidebar_3_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('sidebar_4_tpl', 'admin/admin_sidebar_4_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('bottom_top_tpl', 'admin/admin_bottom_top_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('bottom_1_tpl', 'admin/admin_bottom_1_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('bottom_2_tpl', 'admin/admin_bottom_2_tpl.tpl');
 			$this->registry->library('template')->addTemplateSegment('top_bar_tpl', 'admin/admin_top_bar_tpl.tpl');
 			$this->registry->library('template')->addTemplateSegment('top_menu_tpl', 'admin/admin_top_menu_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('bottom_bar_tpl', 'admin/admin_bottom_bar_tpl.tpl');
+			$this->registry->library('template')->addTemplateSegment('slider_tpl', 'admin/admin_slider_tpl.tpl');
+
 			$this->registry->library('template')->page()->addTag('VIEWDIR', FWURL . APPDIR . '/views/' . $this->registry->setting('theme') . '/');
 			$this->registry->library('template')->page()->addTag('site_url', FWURL);
 			$this->registry->library('template')->page()->addTag('CMS0', $this->registry->setting('settings_site0'));
@@ -93,6 +110,7 @@ class Admincontroller
 			$this->registry->library('template')->page()->addTag('logout', $this->registry->library('lang')->line('logout'));
 			$this->registry->library('template')->page()->addTag('manage_users', $this->registry->library('lang')->line('manage_users'));
 			$this->registry->library('template')->page()->addTag('manage_roles', $this->registry->library('lang')->line('manage_roles'));
+			$this->registry->library('template')->page()->addTag('manage_role', $this->registry->library('lang')->line('manage_role'));
 			$this->registry->library('template')->page()->addTag('manage_perms', $this->registry->library('lang')->line('manage_perms'));
 			$this->registry->library('template')->page()->addTag('user_roles', $this->registry->library('lang')->line('user_roles'));
 			$this->registry->library('template')->page()->addTag('user_perms', $this->registry->library('lang')->line('user_perms'));
@@ -113,6 +131,7 @@ class Admincontroller
 			$this->registry->library('template')->page()->addTag('not_member', $this->registry->library('lang')->line('not_member'));
 			$this->registry->library('template')->page()->addTag('articles', $this->registry->library('lang')->line('articles'));
 			$this->registry->library('template')->page()->addTag('create_article', $this->registry->library('lang')->line('create_article'));
+			$this->registry->library('template')->page()->addTag('edit_article', $this->registry->library('lang')->line('edit_article'));
 			$this->registry->library('template')->page()->addTag('edit_articles', $this->registry->library('lang')->line('edit_articles'));
 			$this->registry->library('template')->page()->addTag('click_here_if', $this->registry->library('lang')->line('click_here_if'));
 			$this->registry->library('template')->page()->addTag('date_text', $this->registry->library('lang')->line('date_text'));
@@ -131,6 +150,7 @@ class Admincontroller
 			$this->registry->library('template')->page()->addTag('category_text', $this->registry->library('lang')->line('category_text'));
 			$this->registry->library('template')->page()->addTag('categories_text', $this->registry->library('lang')->line('categories_text'));
 			$this->registry->library('template')->page()->addTag('create_category', $this->registry->library('lang')->line('create_category'));
+			$this->registry->library('template')->page()->addTag('edit_category', $this->registry->library('lang')->line('edit_category'));
 			$this->registry->library('template')->page()->addTag('no_categories_yet', $this->registry->library('lang')->line('no_categories_yet'));
 			$this->registry->library('template')->page()->addTag('is_children_category', $this->registry->library('lang')->line('is_children_category'));
 			$this->registry->library('template')->page()->addTag('yes', $this->registry->library('lang')->line('yes'));
@@ -167,11 +187,13 @@ class Admincontroller
 			$this->registry->library('template')->page()->addTag('post_text', $this->registry->library('lang')->line('post_text'));
 			$this->registry->library('template')->page()->addTag('forums_text', $this->registry->library('lang')->line('forums_text'));
 			$this->registry->library('template')->page()->addTag('create_forum', $this->registry->library('lang')->line('create_forum'));
+			$this->registry->library('template')->page()->addTag('edit_forum', $this->registry->library('lang')->line('edit_forum'));
 			$this->registry->library('template')->page()->addTag('forum_name_text', $this->registry->library('lang')->line('forum_name_text'));
 			$this->registry->library('template')->page()->addTag('forum_description_text', $this->registry->library('lang')->line('forum_description_text'));
 			$this->registry->library('template')->page()->addTag('no_forums_yet', $this->registry->library('lang')->line('no_forums_yet'));
 			$this->registry->library('template')->page()->addTag('shops_text', $this->registry->library('lang')->line('shops_text'));
 			$this->registry->library('template')->page()->addTag('create_shop', $this->registry->library('lang')->line('create_shop'));
+			$this->registry->library('template')->page()->addTag('edit_shop', $this->registry->library('lang')->line('edit_shop'));
 			$this->registry->library('template')->page()->addTag('shop_name_text', $this->registry->library('lang')->line('shop_name_text'));
 			$this->registry->library('template')->page()->addTag('shop_description_text', $this->registry->library('lang')->line('shop_description_text'));
 			$this->registry->library('template')->page()->addTag('no_shops_yet', $this->registry->library('lang')->line('no_shops_yet'));
@@ -188,6 +210,7 @@ class Admincontroller
 			$this->registry->library('template')->page()->addTag('welcome', $this->registry->library('lang')->line('welcome'));
 			$this->registry->library('template')->page()->addTag('registration', $this->registry->library('lang')->line('registration'));
 			$this->registry->library('template')->page()->addTag('add_cf', $this->registry->library('lang')->line('add_cf'));
+			$this->registry->library('template')->page()->addTag('edit_cf', $this->registry->library('lang')->line('edit_cf'));
 			$this->registry->library('template')->page()->addTag('list_cf', $this->registry->library('lang')->line('list_cf'));
 			$this->registry->library('template')->page()->addTag('field_name', $this->registry->library('lang')->line('field_name'));
 			$this->registry->library('template')->page()->addTag('field_url_title', $this->registry->library('lang')->line('field_url_title'));
@@ -206,6 +229,7 @@ class Admincontroller
 			$this->registry->library('template')->page()->addTag('sections_text', $this->registry->library('lang')->line('sections_text'));
 			$this->registry->library('template')->page()->addTag('pages_text', $this->registry->library('lang')->line('pages_text'));
 			$this->registry->library('template')->page()->addTag('create_page', $this->registry->library('lang')->line('create_page'));
+			$this->registry->library('template')->page()->addTag('edit_page', $this->registry->library('lang')->line('edit_page'));
 			$this->registry->library('template')->page()->addTag('parent_page_text', $this->registry->library('lang')->line('parent_page_text'));
 			$this->registry->library('template')->page()->addTag('page_title_text', $this->registry->library('lang')->line('page_title_text'));
 			$this->registry->library('template')->page()->addTag('page_url_name_text', $this->registry->library('lang')->line('page_url_name_text'));
@@ -214,6 +238,7 @@ class Admincontroller
 			$this->registry->library('template')->page()->addTag('no_pages_yet', $this->registry->library('lang')->line('no_pages_yet'));
 			$this->registry->library('template')->page()->addTag('blocks_text', $this->registry->library('lang')->line('blocks_text'));
 			$this->registry->library('template')->page()->addTag('create_block', $this->registry->library('lang')->line('create_block'));
+			$this->registry->library('template')->page()->addTag('edit_block', $this->registry->library('lang')->line('edit_block'));
 			$this->registry->library('template')->page()->addTag('block_title_text', $this->registry->library('lang')->line('block_title_text'));
 			$this->registry->library('template')->page()->addTag('block_order_text', $this->registry->library('lang')->line('block_order_text'));
 			$this->registry->library('template')->page()->addTag('block_description_text', $this->registry->library('lang')->line('block_description_text'));
@@ -2026,11 +2051,12 @@ else
 				}
 				$this->registry->library('db')->insertRecordsSys('articles', $data);
 
-// php hook: creating_article_after_insertRecordsSys_articles_hook
-				$this->registry->library('hook')->call('creating_article_after_insertRecordsSys_articles_hook');
-
 // To add Categories
 				$lastInsertID = $this->registry->library('db')->lastInsertID();
+
+//// php hook: creating_article_after_insertRecordsSys_articles_hook
+				$this->registry->library('hook')->call('creating_article_after_insertRecordsSys_articles_hook');
+
 				$data = array();
 				if ($this->registry->setting('settings_one_cat') == 0)
 				{
