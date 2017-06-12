@@ -308,6 +308,15 @@ PayPal Sandbox
 
 <!-- END settings -->
 
+{currency_text}
+<br />
+<select name="def_curr">
+<!-- START currency_list_select -->
+<option value="{currency_id}">{currency_code} - {currency_name} </option>
+<!-- END currency_list_select -->
+</select>
+<br /><br />
+
 <p><input type='submit' value='{submit}'/></p>
 </form>
 

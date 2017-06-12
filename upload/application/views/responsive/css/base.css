@@ -340,3 +340,9 @@
 	color: #046CAE;
 }
 
+/* SHOP */
+
+table.u-full-width {
+	width: 100%;
+	box-sizing: border-box; 
+}

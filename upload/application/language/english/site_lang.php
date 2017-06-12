@@ -422,5 +422,6 @@ $this->lang['search_absent'] = 'Search word is absent';
 $this->lang['search_absent_message'] = 'Please enter a search word';
 $this->lang['search_short'] = 'Search word is too short';
 $this->lang['search_short_message'] = 'It must be longer than 3 characters';
-
+$this->lang['last_cms_not_deleted'] = 'You cannot delete the last site';
+$this->lang['active_cms_not_deleted'] = 'You cannot delete the active site';
 ?>

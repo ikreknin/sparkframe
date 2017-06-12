@@ -540,6 +540,18 @@ tinymce.init({
 		$this->registry->library('template')->page()->addTag('pagetitle', $this->registry->setting('settings_cms_title'));
 		if ($this->registry->library('authenticate')->isLoggedIn() == true || $this->guests_allowed == 1)
 		{
+			$sql = "SELECT *
+			FROM " . $this->prefix . "settings 
+			LEFT JOIN " . $this->prefix . "currency_list ON def_curr = currency_id
+			WHERE settings_sys = '" . $this->registry->setting('settings_sys') . "'";
+			$this->registry->library('db')->execute($sql);
+			if ($this->registry->library('db')->numRows() != 0)
+			{
+				$data = $this->registry->library('db')->getRows();
+				$def_curr = $data['currency_code'];
+				$this->registry->library('template')->page()->addTag('def_curr', $data['currency_code']);
+			}
+
 // does the product exist?
 			$sql = 'SELECT *
 				FROM ' . $this->prefix . 'shop_products

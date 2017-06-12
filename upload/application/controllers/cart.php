@@ -342,6 +342,17 @@ tinymce.init({
 		$this->registry->library('template')->page()->addTag('pagetitle', $this->registry->setting('settings_cms_title'));
 		if ($this->registry->library('authenticate')->isLoggedIn() == true || $this->guests_allowed == 1)
 		{
+			$sql = "SELECT *
+			FROM " . $this->prefix . "settings 
+			LEFT JOIN " . $this->prefix . "currency_list ON def_curr = currency_id
+			WHERE settings_sys = '" . $this->registry->setting('settings_sys') . "'";
+			$this->registry->library('db')->execute($sql);
+			if ($this->registry->library('db')->numRows() != 0)
+			{
+				$data = $this->registry->library('db')->getRows();
+				$def_curr = $data['currency_code'];
+				$this->registry->library('template')->page()->addTag('def_curr', $data['currency_code']);
+			}
 // shops
 			$shops_available = '';
 			$sql = 'SELECT *
@@ -413,7 +424,6 @@ tinymce.init({
 							if ($v['t_product_id'] == $x)
 							{
 								$cartArray[$i]['product_qty'] = $y;
-								$cartArray[$i]['product_currency'] = 'USD';
 								$cartArray[$i]['product_price'] = $v['t_price'] * $y;
 								$total = $total + $cartArray[$i]['product_price'];
 							}
@@ -428,7 +438,7 @@ tinymce.init({
 			}
 			else
 			{
-				$cartArray[] = array('product_id' => '', 'product_name' => '', 'product_shop_name' => '', 'product_qty' => '', 'product_currency' => '', 'product_price' => '');
+				$cartArray[] = array('product_id' => '', 'product_name' => '', 'product_shop_name' => '', 'product_qty' => '', 'product_price' => '');
 				$cache = $this->registry->library('db')->cacheData($cartArray);
 				$this->registry->library('template')->page()->addTag('cart', array('DATA', $cache));
 				$this->registry->library('template')->page()->addTag('cart_total', 0);
@@ -501,6 +511,10 @@ tinymce.init({
 		if ($this->registry->library('authenticate')->isLoggedIn() == true || $this->guests_allowed == 1)
 		{
 			unset ($_SESSION['cart'][$this->seg_2]);
+			if(empty($_SESSION['cart']))
+			{
+				unset ($_SESSION['cart']);
+			}
 			$this->registry->redirectUser('cart', $this->registry->library('lang')->line('changes_saved_successfully'), $this->registry->library('lang')->line('please_wait_for_the_redirect'));
 		}
 		else
@@ -573,7 +587,7 @@ tinymce.init({
 ';
 						$message .= 'Shop Name: ' . $v['f_name'] . '
 ';
-						$message .= 'Price: USD ' . $v['t_price'] . '
+						$message .= 'Price: ' . $def_curr . ' ' . $v['t_price'] . '
 ';
 // 2. plus SESSION data array
 						foreach ($_SESSION['cart'] as $x => $y)
@@ -582,7 +596,7 @@ tinymce.init({
 							{
 								$message .= 'Quantity: ' . $y . '
 ';
-								$message .= 'Subtotal: USD ' . $v['t_price'] * $y . '
+								$message .= 'Subtotal: ' . $def_curr . ' ' . $v['t_price'] * $y . '
 
 
 ';
@@ -592,7 +606,7 @@ tinymce.init({
 						$i = $i + 1;
 					}
 				}
-				$message .= 'Total: USD ' . $total . '
+				$message .= 'Total: ' . $def_curr . ' ' . $total . '
 ';
 			}
 			$subject = 'Order From: ' . FWURL;

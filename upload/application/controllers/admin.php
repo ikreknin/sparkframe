@@ -3482,6 +3482,7 @@ AND ac_art_id = ' . $articleID;
 	{
 		if ($this->registry->library('authenticate')->isAdmin() == true || $this->registry->library('authenticate')->hasPermission('access_admin') == true)
 		{
+			$this->registry->library('template')->page()->addTag('currency_text', $this->registry->library('lang')->line('currency'));
 			$this->registry->library('template')->page()->addTag('settings_sys_name_text', $this->registry->library('lang')->line('settings_sys_name_text'));
 			$this->registry->library('template')->page()->addTag('settings_metakeywords_text', $this->registry->library('lang')->line('settings_metakeywords_text'));
 			$this->registry->library('template')->page()->addTag('settings_metadescription_text', $this->registry->library('lang')->line('settings_metadescription_text'));
@@ -3529,6 +3530,59 @@ AND ac_art_id = ' . $articleID;
 			WHERE settings_sys = '" . $this->registry->setting('settings_sys') . "'";
 			$cache = $this->registry->library('db')->cacheQuery($sql);
 			$this->registry->library('template')->page()->addTag('settings', array('SQL', $cache));
+
+// def_curr for Currency List
+			$def_curr = 0;
+			$this->registry->library('db')->execute($sql);
+			if ($this->registry->library('db')->numRows() != 0)
+			{
+				$data = $this->registry->library('db')->getRows();
+				$def_curr = $data['def_curr'];
+			}
+
+// Currency List
+			$sql = "SELECT *
+			FROM " . $this->prefix . "currency_list ORDER BY currency_active DESC";
+			$cache = $this->registry->library('db')->cacheQuery($sql);
+			if ($this->registry->library('db')->numRowsFromCache($cache) != 0)
+			{
+				$currency_list_select = array();
+				$i = 0;
+				$num = $this->registry->library('db')->numRowsFromCache($cache);
+				$data = $this->registry->library('db')->rowsFromCache($cache);
+// Default Currency Up
+				while ($i < $num)
+				{
+					foreach ($data as $k => $v)
+					{
+						if ($v['currency_id'] == $def_curr )
+						{
+							$currency_list_select[$i]['currency_id'] = $v['currency_id'];
+							$currency_list_select[$i]['currency_code'] = $v['currency_code'];
+							$currency_list_select[$i]['currency_name'] = $v['currency_name'];
+						}
+							$i = $i + 1;
+					}
+				}
+// Other currencies here
+				$data = $this->registry->library('db')->rowsFromCache($cache);
+				while ($i < $num * 2)
+				{
+					foreach ($data as $k => $v)
+					{
+						if ($v['currency_id'] != $def_curr )
+						{
+							$currency_list_select[$i]['currency_id'] = $v['currency_id'];
+							$currency_list_select[$i]['currency_code'] = $v['currency_code'];
+							$currency_list_select[$i]['currency_name'] = $v['currency_name'];
+						}
+						$i = $i + 1;
+					}
+				}
+			}
+			$cache = $this->registry->library('db')->cacheData($currency_list_select);
+			$this->registry->library('template')->page()->addTag('currency_list_select', array('DATA', $cache));
+
 			$this->registry->library('template')->build('admin/admin_header.tpl', 'admin/admin_settings.tpl', 'admin/admin_footer.tpl');
 		}
 		else
@@ -4833,8 +4887,8 @@ AND ac_art_id = ' . $articleID;
 			$this->registry->library('db')->execute($sql);
 			if ($this->registry->library('db')->numRows() != 0)
 			{
-				$data = $this->registry->library('db')->getRows();
-				$temp = $data['settings_id'];
+				$data_temp = $this->registry->library('db')->getRows();
+				$temp = $data_temp['settings_id'];
 			}
 			else
 			{
@@ -4843,10 +4897,16 @@ AND ac_art_id = ' . $articleID;
 			$sql = "SELECT *
 			FROM " . $this->prefix . "settings
 			WHERE settings_sys = '" . $this->registry->library('db')->sanitizeData($_POST['site']) . "'";
+			$this->registry->library('db')->execute($sql);
 			if ($this->registry->library('db')->numRows() != 0)
 			{
+				$data = $this->registry->library('db')->getRows();
 				$data['settings_id'] = $temp + 1;
 				$data['settings_sys'] = $data['settings_id'];
+// New 'settings_cms_title' & 'settings_cms_description' with *
+				$data['settings_cms_title'] .= ' *';
+				$data['settings_cms_description'] .= ' *';
+
 				$this->registry->library('db')->insertRecords('settings', $data);
 // Restore CacheOn & Delete Cache
 				$this->registry->library('db')->setCacheOn($this->registry->setting('settings_cached'));
@@ -4874,14 +4934,37 @@ AND ac_art_id = ' . $articleID;
 		{
 // Caching OFF
 			$this->registry->library('db')->setCacheOn(0);
-			$this->registry->library('db')->deleteRecords('settings', 'settings_sys=' . $this->registry->library('db')->sanitizeData($_POST['site']), '1');
+
+			$sql = "SELECT *
+			FROM " . $this->prefix . "settings";
+			$cache = $this->registry->library('db')->cacheQuery($sql);
+			$num = $this->registry->library('db')->numRowsFromCache($cache);
+
 // Restore CacheOn & Delete Cache
 			$this->registry->library('db')->setCacheOn($this->registry->setting('settings_cached'));
 			if ($this->registry->setting('settings_cached') == 1)
 			{
 				$this->registry->library('db')->deleteCache('cache_', true);
 			}
-			$this->registry->redirectUser('admin/sites_list', $this->registry->library('lang')->line('changes_saved_successfully'), $this->registry->library('lang')->line('please_wait_for_the_redirect'));
+
+// Active site ?
+			if($_POST['site'] == $this->sys_cms) 
+			{
+				$this->registry->redirectUser('admin/sites_list', $this->registry->library('lang')->line('active_cms_not_deleted'), $this->registry->library('lang')->line('please_wait_for_the_redirect'));
+			}
+			else
+			{
+// Last site ?
+				if ($num > 1)
+				{
+					$this->registry->library('db')->deleteRecords('settings', 'settings_sys=' . $this->registry->library('db')->sanitizeData($_POST['site']), '1');
+					$this->registry->redirectUser('admin/sites_list', $this->registry->library('lang')->line('changes_saved_successfully'), $this->registry->library('lang')->line('please_wait_for_the_redirect'));
+				}
+				else
+				{
+					$this->registry->redirectUser('admin/sites_list', $this->registry->library('lang')->line('last_cms_not_deleted'), $this->registry->library('lang')->line('please_wait_for_the_redirect'));
+				}
+			}
 		}
 		else
 		{

@@ -17,7 +17,7 @@
 		<h2>{shopping_cart}</h2>
 {if '{visitor_user_id}'!='0'}
 		<table class="u-full-width">
-			<tr>
+			<thead>
 				<th>{product_text}</th>
 				<th>{shop_text}</th>
 				<th>{q-ty}</th>
@@ -26,7 +26,7 @@
 				<th></th>
 				<th></th>
 				<th></th>
-			</tr>
+			</thead>
 {else}
 			<p>{logged_in_to_buy}</p>
 {/if}
@@ -38,7 +38,7 @@
 				<td><a href="{site_url}{SHOP0}/viewproduct/{product_id}">{product_name}</a></td>
 				<td><a href="{site_url}{SHOP0}/viewshop/{product_shop_id}">{product_shop_name}</a></td>
 				<td>{product_qty}</td>
-				<td>{product_currency}</td>
+				<td>{def_curr}</td>
 				<td>{product_price}</td>
 				<td><a href="{site_url}cart/add/{product_id}">[+]</a></td>
 				<td><a href="{site_url}cart/remove/{product_id}">[-]</a></td>
@@ -49,7 +49,7 @@
 				<td></td>
 				<td></td>
 				<td>{total_text}:</td>
-				<td>USD</td>
+				<td>{def_curr}</td>
 				<td>{cart_total}</td>
 				<td></td>
 				<td></td>

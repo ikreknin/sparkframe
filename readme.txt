@@ -149,3 +149,6 @@ Version history:
 4. SyntaxHighlighter (3.0.83) updated (with SH4TinyMCE)
 - 3.0.8
 1. Table with ISO 4217 Currency Codes added
+- 3.0.9
+1. Currency selection in Settings
+2. PayPal uses the currency set in Settings
