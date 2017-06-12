@@ -2141,7 +2141,6 @@ AND ac_art_id = ' . $data['article_id'];
 					}
 					if($compare == 0)
 					{
-						echo 'Zero';
 						$data12NewFields[] = array('c_created_id' => $vFields['c_created_id'], 'c_created_name' => $vFields['c_created_name'], 'c_created_url_title' => $vFields['c_created_url_title'], 'c_created_description' => $vFields['c_created_description'], 'c_created_type' => $vFields['c_created_type'], 'c_created_site_section' => $vFields['c_created_site_section'], 'c_created_obligatory' => $vFields['c_created_obligatory'], 'c_type_default_value' => $vFields['c_type_default_value'], 'c_fields_created_sys' => $vFields['c_fields_created_sys'], 'c_created_encrypted' => $vFields['c_created_encrypted'], 'c_type_name' => $vFields['c_type_name'], 'c_fields_id' => '', 'c_name_id' => '', 'c_body' => '', 'c_art_id' => '', 'c_fields_sys' => '');
 					}
 				}

@@ -125,6 +125,31 @@ class Userscontroller
 			$startyear = $this->registry->setting('settings_startyear');
 			$copyright_years = $this->registry->library('helper')->copyright_years($startyear);
 			$this->registry->library('template')->page()->addTag('copyright_years', $copyright_years);
+//
+			$w = $this->registry->widget('latest_articles_plus_widget')->index(15);
+			$this->registry->library('template')->addWidgetTag('latest_articles_plus_widget', $w);
+//
+//
+			$w = $this->registry->widget('monthly_archive_widget')->index();
+			$this->registry->library('template')->addWidgetTag('monthly_archive_widget', $w);
+//
+//
+			$w = $this->registry->widget('poll_widget')->index();
+			$this->registry->library('template')->addWidgetTag('poll_widget', $w);
+//
+//
+			$w = $this->registry->widget('jtabsrss_widget')->index();
+			$this->registry->library('template')->addWidgetTag('jtabsrss_widget', $w);
+//
+			$w = $this->registry->widget('latest_tweets_widget')->index();
+			$this->registry->library('template')->addWidgetTag('latest_tweets_widget', $w);
+//
+			$w = $this->registry->widget('elastislide_widget')->index();
+			$this->registry->library('template')->addWidgetTag('elastislide_widget', $w);
+//
+			$w = $this->registry->widget('accessible_mega_menu_widget')->index();
+			$this->registry->library('template')->addWidgetTag('accessible_mega_menu_widget', $w);
+//
 			$urlSegments = $this->registry->getURLSegments();
 			$this->seg_1 = $this->registry->library('db')->sanitizeData($urlSegments[1]);
 			$this->seg_2 = $this->registry->library('db')->sanitizeData($urlSegments[2]);
