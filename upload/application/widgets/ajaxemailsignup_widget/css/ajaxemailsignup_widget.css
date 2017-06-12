@@ -1,0 +1,47 @@
+#signup-email {
+	border:1px solid #999999;
+	color:#9E9E9E;
+	padding:5px;
+	margin-left:10px;
+	margin-right:4px;
+}
+
+#signup-email:focus {
+	border-color:#9FCBFF;
+	background-color:#DFEEFF;
+	background-image:none;
+	color:#000;
+}
+
+#signup-button {
+	background-color:#9FCBFF;
+	color:#FFF;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	padding:5px;
+	text-shadow: 1px 1px 1px #5FA8FF;	
+}
+
+#signup-button:hover {
+	cursor:pointer;
+	background-color:#7FB9FF;
+}
+
+#signup-response {
+	display:inline;
+	margin-left:4px;
+	padding-left:20px;
+}
+
+.response-waiting {
+	background:url("loading.gif") no-repeat;
+}
+
+.response-success {
+	background:url("tick.png") no-repeat;
+}
+
+.response-error {
+	background:url("cross.png") no-repeat;
+}

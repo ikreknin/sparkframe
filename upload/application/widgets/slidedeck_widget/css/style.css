@@ -1,0 +1,98 @@
+div#sliderSection {
+	width: 800px;
+	background-color: #f5f7f8;
+	border-top: 1px solid #e4e8ea;
+	border-bottom: 1px solid #e4e8ea;
+	padding: 20px 80px 20px 0;
+}
+
+div#slidedeckFrame {
+	height: 300px;
+	background-color: #f5f7f8;
+	z-index: 0;
+}
+
+.skin-slidedeck-sf {
+    position: relative;
+}
+
+.skin-slidedeck-sf dl.slidedeck {
+    position: relative;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+    padding: 0;
+}
+
+
+.skin-slidedeck-sf dl.slidedeck > dd {
+    position: relative;
+	height: 260px;
+	padding: 20px 25px;
+    margin: 0;
+	background-color: white;
+    overflow: hidden;
+	border: 1px solid #e4e8ea;
+}
+
+.skin-slidedeck-sf dl.slidedeck > dt {
+    position: relative;
+	cursor: pointer;
+	height: 50px;
+	line-height: 50px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	background-color: #e4e8ea;
+    margin: 0;
+    padding: 0;
+    color: #2f3134;
+    border-top: 5px solid #f5f7f8;
+	-webkit-transition: background-color 0.2s ease-in-out;
+	-moz-transition: background-color 0.2s ease-in-out;
+	-o-transition: background-color 0.2s ease-in-out;
+	transition: background-color 0.2s ease-in-out;
+}
+
+.skin-slidedeck-sf dl.slidedeck dt.spine:hover {
+	color: white;
+	background-color: #032D64;
+}
+
+.skin-slidedeck-sf dl.slidedeck dt.spine.active,
+.skin-slidedeck-sf dl.slidedeck dt.spine.active:hover {
+	cursor: default;
+	color: white;
+	background-color: #032D64;
+}
+
+.skin-slidedeck-sf dl.slidedeck  { font-size: 14px; }
+
+.skin-slidedeck-sf dl.slidedeck dt.spine.active .index { margin-bottom: 0; }
+
+.skin-slidedeck-sf dl.slidedeck dt.spine:hover .index { color: white; }
+
+.skin-slidedeck-sf dl.slidedeck dt.spine.active .index { color: white; }
+
+div.blankSeparator {
+	height: 1px;
+	margin-bottom: 35px;
+	display: block;
+}
+
+div#sliderSection a.linkSlideDeckButton {
+	padding: 10px 15px;
+	color: #2F3134;
+	background-color: #e4e8ea;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+div#sliderSection a.linkSlideDeckButton:hover {
+	color: white;
+	background-color: #032D64;
+	-webkit-transition: background-color 0.2s ease-in-out;
+	-moz-transition: background-color 0.2s ease-in-out;
+	-o-transition: background-color 0.2s ease-in-out;
+	transition: background-color 0.2s ease-in-out;
+}

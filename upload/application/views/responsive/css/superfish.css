@@ -1,0 +1,184 @@
+/* http://paletton.com/#uid=13p0u0kqpJWfDRZlmNCxqGpDss- */
+
+/*** ESSENTIAL STYLES ***/
+.sf-menu, .sf-menu * {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.sf-menu li {
+	position: relative;
+}
+
+	.sf-menu li a span { /**/
+		display: block;
+		font-size: 12px;
+		line-height: 1.2em;
+		color: #0793c1;
+		text-shadow: 0 1px 0 #fff;
+		text-transform: none;
+		font-style: italic;
+		font-family: Georgia, "Times New Roman", Times, serif;
+		padding-top: 4px;
+}
+	.sf-menu > li > a i { /**/
+		display: none;
+	}
+.sf-menu ul {
+	position: absolute;
+	display: none;
+	top: 100%;
+	left: 0;
+	z-index: 99;
+}
+.sf-menu > li {
+	float: left;
+}
+.sf-menu li:hover > ul,
+.sf-menu li.sfHover > ul {
+	display: block;
+}
+
+.sf-menu a {
+	display: block;
+	position: relative;
+}
+.sf-menu ul ul {
+	top: 0;
+	left: 100%;
+}
+
+
+/*** DEMO SKIN ***/
+.sf-menu {
+	float: left;
+	/* margin-bottom: 1em; */
+}
+.sf-menu ul {
+	box-shadow: 2px 2px 6px rgba(0,0,0,.2);
+	min-width: 12em; /* allow long menu items to determine submenu width */
+	*width: 12em; /* no auto sub width for IE7, see white-space comment below */
+}
+.sf-menu a {
+	border-left: 1px solid #fff;
+	border-top: 1px solid #dFeEFF; /* fallback colour must use full shorthand */
+	border-top: 1px solid rgba(255,255,255,.5);
+	padding: 55px 20px 30px 20px; /*.75em 1em;*/
+	text-decoration: none;
+	zoom: 1; /* IE7 */
+}
+.sf-menu a {
+	color: #046c8e; /*#13a;*/
+}
+.sf-menu li {
+	background: #F3F1EE; /*#BDD2FF;*/
+	white-space: nowrap; /* no need for Supersubs plugin */
+	*white-space: normal; /* ...unless you support IE7 (let it wrap) */
+	-webkit-transition: background .2s;
+	transition: background .2s;
+}
+.sf-menu ul li {
+	background: #fff; /*#AABDE6*/;
+}
+.sf-menu ul ul li {
+	background: #fff; /*#9AAEDB;*/
+}
+.sf-menu li:hover,
+.sf-menu li.sfHover {
+	background: #fff; /*#CFDEFF;*/
+	/* only transition out, not in */
+	-webkit-transition: none;
+	transition: none;
+}
+
+/*** arrows (for all except IE7) **/
+.sf-arrows .sf-with-ul {
+	padding-right: 2.5em;
+	*padding-right: 1em; /* no CSS arrows for IE7 (lack pseudo-elements) */
+}
+/* styling for both css and generated arrows */
+.sf-arrows .sf-with-ul:after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	right: 1em;
+	margin-top: -3px;
+	height: 0;
+	width: 0;
+	/* order of following 3 rules important for fallbacks to work */
+	border: 5px solid transparent;
+	border-top-color: #dFeEFF; /* edit this to suit design (no rgba in IE8) */
+	border-top-color: rgba(255,255,255,.5);
+}
+.sf-arrows > li > .sf-with-ul:focus:after,
+.sf-arrows > li:hover > .sf-with-ul:after,
+.sf-arrows > .sfHover > .sf-with-ul:after {
+	border-top-color: white; /* IE8 fallback colour */
+}
+/* styling for right-facing arrows */
+.sf-arrows ul .sf-with-ul:after {
+	margin-top: -5px;
+	margin-right: -3px;
+	border-color: transparent;
+	border-left-color: #dFeEFF; /* edit this to suit design (no rgba in IE8) */
+	border-left-color: rgba(255,255,255,.5);
+}
+.sf-arrows ul li > .sf-with-ul:focus:after,
+.sf-arrows ul li:hover > .sf-with-ul:after,
+.sf-arrows ul .sfHover > .sf-with-ul:after {
+	border-left-color: white;
+}
+
+/* current menu item */ /**/
+.sf-menu > li.current-menu-item > a {
+	background: #2aa3cc;
+	color: #fff;
+	padding-bottom: 32px;
+}
+	.sf-menu > li.current-menu-item > a:before {
+		background: #eb593c;
+	}
+	.sf-menu > li.current-menu-item > a span {
+		text-shadow: none;
+		color: #046c8e;
+	}
+
+/* submenu */ /**/
+.sf-menu ul {
+	background: #fff;
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .13);
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .13);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .13);
+}
+.sf-menu li li {
+	float: none;
+	padding: 0;
+	width: auto;
+	font-style: italic;
+	font-size: 12px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	line-height: 18px;
+}
+.sf-menu li li a {
+	color: #0793c1;
+	padding: 10px 20px;
+	text-decoration: none;
+	border-top: 1px solid #ebf2ec;
+	-webkit-transition: background 0.1s ease-out;
+	-moz-transition: background 0.1s ease-out;
+	transition: background 0.1s ease-out;
+	position: relative;
+}
+.sf-menu li li:first-child > a {
+	border-top: none;
+}
+.sf-menu li li a:hover,
+.sf-menu li li.sfHover > a,
+.sf-menu li li.current-menu-item > a {
+	background: #4db5d7;
+	color: #fff;
+	border-top-color: #b3cbb8;
+	margin-bottom: -1px;
+	border-bottom: 1px solid #b3cbb8;
+	z-index: 1;
+}

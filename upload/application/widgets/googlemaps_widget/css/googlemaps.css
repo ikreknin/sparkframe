@@ -1,0 +1,6 @@
+#map_canvas{
+	display:block;
+	clear:both;
+	float:left;
+	width:600px; height:350px;
+}

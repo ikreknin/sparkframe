@@ -1,0 +1,44 @@
+body{
+	background: #3d3d3d;
+}
+h1.company-title{
+	color: #fff;
+}
+h2{
+	color: #2e2e2e;
+}
+.sub-text{
+	color: #b6b6b6;
+}
+a{
+	color: #78bde0;
+}
+.main-nav li a{
+	background: #e0af6f;
+	color: #fff;
+}
+.main-nav li a:hover{
+	background: #f7b865;
+	color: #fff;
+}
+.special-nav li a{
+	background: #78bde0;
+	color: #fff;
+}
+.special-nav li a:hover{
+	background: #66a0be;
+	color: #fff;
+}
+.top-nav li a.current{
+	background: #fff;
+	color: #464646;
+}
+b{
+	color: #2e2e2e;
+}
+.modalwrap{
+	border: 2px solid #316d8f;
+}
+.module-title{
+	color: #2e2e2e;
+}

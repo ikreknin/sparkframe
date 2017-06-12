@@ -1,0 +1,32 @@
+@media only screen and (max-width: 767px) {
+	.copyright-primary,
+	.copyright-secondary {
+		float: none;
+		text-align: center;
+	}
+
+	.social-links {
+		float: none;
+		overflow: hidden;
+		width: 100%;
+		text-align: center;
+	}
+		.social-links li {
+			float: none;
+			display: inline-block;
+			overflow: hidden;
+			margin-left: 5px;
+			vertical-align: top;
+		}
+
+	#logo {
+		float: none;
+		text-align: center;
+	}
+
+	.top-bar-control {
+		float: none;
+		text-align: center;
+	}
+
+}

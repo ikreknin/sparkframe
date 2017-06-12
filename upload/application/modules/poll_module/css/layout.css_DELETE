@@ -1,0 +1,540 @@
+
+/* RESET */
+/* ----------------------------------------- */
+
+/* Global reset */
+/* Based upon 'reset.css' in the Yahoo! User Interface Library: http://developer.yahoo.com/yui */
+*, html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, label, fieldset, input, p, blockquote, th, td { margin:0; padding:0 }
+table { border-collapse:collapse; border-spacing:0 }
+fieldset, img { border:0 }
+address, caption, cite, code, dfn, em, strong, th, var { font-style:normal; font-weight:normal }
+ol, ul, li { list-style:none }
+caption, th { text-align:left }
+h1, h2, h3, h4, h5, h6 { font-size:100%; font-weight:normal }
+q:before, q:after { content:''}
+
+/* Global reset-RESET */
+/* The below restores some sensible defaults */
+strong { font-weight: bold }
+em { font-style: italic }
+a img { border:none } /* Gets rid of IE's blue borders */
+html{
+	height: 100%;
+}
+h1{
+	font-size: 30px;
+}
+h2{
+	font-size: 24px;
+	font-weight: bold;
+}
+h3{
+	font-size: 14px;
+	font-weight: bold;
+}
+a{
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: underline;
+}
+body{
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+	margin: 10px;
+}
+.wrap{
+	width: 960px;
+	margin-right: auto;
+	margin-left: auto;
+	min-width: 1000px;
+	max-width: 2000px;
+}
+	.company-brand{
+		text-align: right;
+	}
+		.company-brand .logo{
+			float: left;
+		}
+.top-nav, .top-nav li{
+	display: inline;
+}
+.top-nav{
+	margin-top: 20px;
+}
+	.main-nav{
+		clear: both;
+		float: left;
+	}
+	.special-nav{
+		float: right;
+		margin-right: -20px;
+	}
+		.top-nav li a{
+			display: inline-block;
+			padding: 12px 15px 12px 15px;
+			font-size: 14px;
+			text-transform: uppercase;
+			font-weight: bold;
+		}
+		.top-nav li a:hover{
+			text-decoration: none;
+			padding-bottom: 20px;
+			position: relative;
+			top: -8px;
+			margin-bottom: -8px;
+		}
+.page{
+	width: 100%;
+	min-height: 300px;
+	background: #fff;
+	clear: both;
+	text-align: left;
+	padding: 20px 10px 10px 10px;
+	position: relative;
+}
+
+
+.module{
+	position: relative;
+	background: #f6f6f6;
+	overflow: hidden;
+	border: 1px solid #c1c1c1;
+	margin-bottom: 10px;
+}
+.white-module{
+	position: relative;
+	background: #fff;
+	overflow: hidden;
+	padding: 10px 0px 10px 0px;
+	border: 1px solid #c1c1c1;
+	text-align: center;
+	margin-bottom: 10px;
+}
+.sfpoll{
+	min-height: 300px;
+	width: 650px;
+	float: left;
+}
+.module .module-title{
+	display: block;
+	width: 100%;
+	background: #f3f3f3;
+	border: 1px solid #c1c1c1;
+	padding: 5px 0px 5px 5px;
+	margin-left: -3px;
+	margin-top: -1px;
+	font-size: 24px;
+	font-weight: bold;
+}
+.poll-column{
+	border-left: #c1c1c1 solid 1px;
+	border-right: #c1c1c1 solid 1px;
+	width: 180px;
+	height: 256px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	position: absolute;
+	left: 150px;
+	text-align: left;
+}
+.poll-column li{
+	position: relative;
+}
+.poll-column li p a.delete{
+	position: absolute;	
+	right: 5px;
+	top: 3px;
+	display: none;
+}
+.poll-column li p a.edit{
+	position: absolute;	
+	right: 25px;
+	top: 3px;
+	display: none;
+}
+.group-list{
+	display: none;
+	margin-left: -1px;
+	margin-right: -1px;
+}
+li.all-polls, ul.all-polls{
+	display: block;
+}
+.sfpoll-groups{
+	width: 152px;
+	display: inline-block;
+	float: left;
+	margin-left: -1px;
+	text-align: left;
+	position: absolute;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.sfpoll-groups, .group-list, .poll-info{
+	font-size: 12px;
+	color: #2e2e2e;
+	font-weight: bold;
+}
+.sfpoll-groups li span{
+	background: #f6f6f6;
+	border: 1px solid #c1c1c1;
+	width: 140px;
+	display: inline-block;
+	padding: 5px;
+	margin-top: -1px;
+}
+ul.group-list li p{
+	display: inline-block;
+}
+.sfpoll-groups span:hover, ul.group-list li:hover{
+	background: #dcdcdc;
+	cursor: pointer;
+}
+.sfpoll-groups span:active, .sfpoll-groups span.active, ul.group-list li:active, ul.group-list li.active{
+	background: #3180d0;
+}
+
+		ul.group-list li{
+			background: #f6f6f6;
+			border: 1px solid #c1c1c1;
+			padding: 5px;
+			margin-top: -1px;
+		}
+			ul.group-list li input{
+				display: inline;
+				margin-right: 5px;
+				position: relative;
+				top: 1px;
+			}
+.poll-info{
+	display: inline-block;
+	height: 200px;
+	text-align: left;
+	position: absolute;
+	left: 340px;
+	width: 300px;
+}
+.poll-info *{
+	display: inline;
+}
+.poll-info ul li{
+	text-align: left;
+	display: none;
+}
+.poll-info ul li.showfirst{
+	display: block;
+}
+.poll-info p{
+	line-height: 20px;
+}
+/*FORMS*/
+select{
+	min-width: 150px;
+}
+form{
+	margin: 10px;
+}
+form p{
+	font-size: 12px;
+	color: #2e2e2e;
+	font-weight: bold;	
+}
+form input{
+	font-size: 18px;
+	padding: 5px 1px 5px 1px;
+	font-weight: bold;
+	color: #2e2e2e;
+	margin: 5px 0px 5px 0px;
+}
+
+button.save, button.edit{
+	margin: 20px 20px 0px 0px;
+	background: url(http://sparkframe.com/application/modules/poll_module/css/images/save-trans.png) no-repeat;
+	width: 130px;
+	height: 40px;
+	border: 0px;
+	cursor: pointer;
+}
+button.save:hover, button.edit:hover{
+	background: url(http://sparkframe.com/application/modules/poll_module/css/images/save-hover-trans.png) no-repeat;
+}
+
+button.save_group{
+	margin: 20px 20px 0px 0px;
+	background: url(http://sparkframe.com/application/modules/poll_module/css/images/save-trans.png) no-repeat;
+	width: 130px;
+	height: 40px;
+	border: 0px;
+	cursor: pointer;
+}
+button.save_group:hover{
+	background: url(http://sparkframe.com/application/modules/poll_module/css/images/save-hover-trans.png) no-repeat;
+}
+
+/*Columns*/
+.leftcolumn{
+	float: left;
+	width: 650px;
+	margin-right: 10px;
+}
+.rightcolumn{
+	/*float: right;
+	display: inline;
+	clear: right;*/
+	min-height:650px; /* for modern browsers */
+	height:auto !important; /* for modern browsers */
+	height:650px; /* for IE5.x and IE6 */
+	float: right;
+	width: 300px;
+}
+.fullwidth{
+	width: 100%;
+	text-align: left;
+}
+.equal{
+	width: 47%;
+}
+.clear{
+	clear: both;
+}
+.small{
+	width: 300px;
+}
+.large{
+	width: 975px;
+}
+/*Shoutbox & Task Manager*/
+.tasks{
+	min-width: 600px;
+	position: relative;
+}
+.shouts{
+	
+}
+.shout, .tasks li{
+	display: inline-block;
+	background: #f3f3f3;
+	border: 1px solid #c1c1c1;
+	width: 90%;
+	margin-top: -1px;
+	padding: 8px 10px 8px 10px;
+	position: relative;
+}
+	.shouts img{
+		float: left;
+	}
+	.shout p, .tasks li p{
+		display: inline;
+	}
+	.shoutname, .tasks li p.taskdate{
+		font-size: 12px;
+		color: #bababa;
+		font-style: italic;
+	}
+	.shoutmessage, .tasks li p.taskname{
+		font-size: 14px;
+		color: #2e2e2e;
+	}
+	p.taskname{
+		font-weight: bold;
+	}
+	li.none{
+		border-left: 5px solid #78bde0;
+	}
+	li.upcoming{
+		border-left: 5px solid #5ae053;
+	}
+	li.urgent{
+		border-left: 5px solid #e0432f;
+	}
+	.tasks li a.edit{
+		position: absolute;
+		right: 10px;
+	}
+	.tasks li a.edit{
+		position: absolute;
+		right: 35px;
+	}
+	.tasks li a.delete{
+		position: absolute;
+		right: 10px;
+	}
+	
+/*Notification Boxes */
+.success{
+	background: #aeec92;
+	border: 1px solid #8bbd75;
+	font-weight: bold;
+	width: 95%;
+	padding: 10px;
+	font-size: 12px;
+	display: block;
+	margin: 20px;
+}
+.notification p{
+	font-family: "Trebuchet MS";
+	font-size: 12px;
+	padding: 10px;
+}
+.notification{
+	margin-bottom: 20px;
+	background-image:url(http://sparkframe.com/application/modules/poll_module/css/ui-theme/images/ui-icons_ffffff_256x240.png);
+	background-position:-96px -128px;
+	position: relative;
+}
+.close{
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	cursor: pointer;
+}
+.caution{
+	border: 1px solid #b32c25;
+	background: #ec5951;
+	font-weight: bold;
+	width: 95%;
+	padding: 10px;
+	font-size: 12px;
+	display: block;
+	margin: 20px;
+}
+.ui-dialog{
+	text-align: left;
+}
+.row{
+	width: 95%;
+	line-height: 30px;
+	font-size: 14px;
+	margin-left: 10px;
+	text-align: left;
+	position: relative;
+}
+	.row .deletegroup{
+		position: relative;
+		top: 5px;
+		margin-right: 5px;
+		
+	}
+.module-title{
+	position: relative;
+}
+.module-title .add{
+	position: absolute;
+	right: 15px;
+	top: 12px;
+}
+/*Side-nav */
+.side-nav li a.notexpandable, .side-nav li a.expandable{
+	width: 276px;
+	margin-left: -2px;
+	display: block;
+	min-height: 18px;
+	font-weight: bold;
+	font-size: 13px;
+	padding: 12px;
+	color: #2e2e2e; /*1c94c4*/
+	background: #f9f9f9;
+	border: 1px solid #cccccc;
+	margin-bottom: 5px;
+	outline: none;
+	position: relative;
+}
+.side-nav{
+	margin-bottom: 20px;
+}
+.side-nav li a.notexpandable:hover, .side-nav li a.expandable:hover{
+	text-decoration: none;
+}
+.side-nav li a.expandable:hover{
+	background: #fdf9e1 ;
+	border: #62a8c4 1px solid;
+}
+.side-nav li a.notexpandable:hover{
+	background: #fdf9e1 ;
+	border: #62a8c4 1px solid;
+}
+.expand-content{
+	display: none;
+	z-index: 100;	
+}
+.ui-state-default{
+	cursor: pointer;
+}
+.nav-icons{
+	position: absolute;
+	right: 5px;
+}
+.loading{
+	background: url(http://sparkframe.com/application/modules/poll_module/css/images/ajax-loader.gif) no-repeat;
+	height: 16px;
+	width: 16px;
+	display: inline-block;
+	position: absolute;
+	right: 49%;
+	top: 150px;
+	display: none;
+}
+.loadingshown{
+	background: url(http://sparkframe.com/application/modules/poll_module/css/images/ajax-loader.gif) no-repeat;
+	height: 16px;
+	width: 16px;
+	display: inline-block;
+	position: absolute;
+	left: 50%;
+	top: 100px;
+	z-index: 50;
+}
+iframe{
+	z-index: 100;
+	position: relative;
+	border: 0px;
+}
+.edit-poll-dialog{
+	opacity:0.6;filter:alpha(opacity=60);
+}
+.edit-poll-dialog.alive{
+	opacity:1;filter:alpha(opacity=100);
+}
+input.error{
+    border: 1px solid red;
+}
+label.error{
+    color: red;
+    margin-left: 3px;
+    font-size: 12px;
+}
+.screen{
+	width: 100%;
+	height: 100%;
+	opacity:0.6;filter:alpha(opacity=60);
+	background-color: #f1f1f1;
+	position: absolute;
+	z-index: 200;
+	
+}
+
+.confirmdelete .ui-widget-header{
+	background: #B81900 url(http://sparkframe.com/application/modules/poll_module/css/ui-theme/images/ui-bg_diagonals-thick_18_b81900_40x40.png) repeat scroll 50% 50%;
+}
+
+.ui-datepicker-trigger{
+	position: relative;
+	top: 5px;
+	left: 2px;
+	cursor: pointer;
+}
+.ui-datepicker{
+	z-index: 300;
+}
+	
+
+.widget{
+	min-height:650px; /* for modern browsers */
+	height:auto !important; /* for modern browsers */
+	height:650px; /* for IE5.x and IE6 */
+
+}
+/*.dhx_cal_data{
+	z-index: 1000;
+}*/

@@ -1,0 +1,104 @@
+.content {
+	width:610px;
+	margin:0 auto;
+	position:relative;
+	z-index:-1;
+}
+
+
+.nivoSlider {
+	position:relative;
+	min-height:220px;
+	margin:30px 30px 60px 30px;
+	background:#202834 url(http://tulks.com/sparkframe/application/widgets/nivoslider_widget/images/loading.gif) no-repeat 50% 50%;
+	-moz-box-shadow:0px 0px 10px #333;
+	-webkit-box-shadow:0px 0px 10px #333;
+	box-shadow:0px 0px 10px #333;
+}
+.nivoSlider img {
+	position:absolute;
+	top:0px;
+	left:0px;
+	display:none;
+}
+
+.nivoSlider a {
+	border:0;
+}
+.nivoSlider a.nivo-imageLink {
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	border:0;
+	padding:0;
+	margin:0;
+	z-index:60;
+	display:none;
+}
+
+/* Direction nav styles (e.g. Next & Prev) */
+.nivo-directionNav a {
+	position:absolute;
+	top:45%;
+	width:30px;
+	height:30px;
+	background:url(http://tulks.com/sparkframe/application/widgets/nivoslider_widget/images/arrows.png) no-repeat;
+	z-index:99;
+	cursor:pointer;
+	text-indent:-9999px;
+	border:0;
+}
+
+a.nivo-nextNav {
+	background-position:-30px 0;
+	right:15px;
+}
+a.nivo-prevNav {
+	left:15px;
+}
+
+#slider1 .nivo-controlNav {
+	position:absolute;
+	left:47%;
+	bottom:-30px;
+}
+#slider1 .nivo-controlNav a {
+	display:block;
+	width:10px;
+	height:10px;
+	background:url(http://tulks.com/sparkframe/application/widgets/nivoslider_widget/images/bullets.png) no-repeat;
+	text-indent:-9999px;
+	border:0;
+	margin-right:3px;
+	float:left;
+}
+#slider1 .nivo-controlNav a.active {
+	background-position:-10px 0;
+}
+
+
+/* The slices in the Slider */
+.nivo-slice {
+	display:block;
+	position:absolute;
+	z-index:50;
+	height:100%;
+}
+/* Caption styles */
+.nivo-caption {
+	position:absolute;
+	left:0px;
+	bottom:0px;
+	background:#000;
+	color:#fff;
+	opacity:0.8; /* Overridden by captionOpacity setting */
+	width:100%;
+	z-index:89;
+}
+.nivo-caption p {
+	padding:5px;
+	margin:0;
+}
+
