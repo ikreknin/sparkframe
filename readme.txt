@@ -137,3 +137,5 @@ Version history:
    now 'art_tags' is created by Tags Module)
 2. 6 Tags Extensions added (to create/edit/delete articles).
 3. 2 Tags Widgets added (to show tag list and tag cloud)
+- 3.0.5
+1. latest_articles_frontpage_widget can display tags.

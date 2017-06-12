@@ -19,6 +19,8 @@ class Latest_articles_frontpage_widget
 		$settings_site0 = Registry :: setting('settings_site0');
 		$one_cat_available = Registry :: setting('settings_one_cat');
 
+		$tags_text = Registry :: library('lang')->line('tags');
+
 		$current_language = 'english';
 		if ($_SESSION['language'] != '')
 		{
@@ -103,14 +105,47 @@ $result .= '	<article class="post clearfix">
 			</p>
 		</header>
 		<div class="post-excerpt">
-			' . $v["article"] . (($v["article_extended"] != "") ? 
+			' . $v["article"]; 
+
+
+// TAGS START
+				$show_tags = 1; // TO SHOW TAGS
+				$show_tags = 0; // NOT TO SHOW TAGS
+				if($show_tags != 0)
+				{
+					$art_tags_html = '';
+					if($v['art_tags'] != '')
+					{
+						$art_tags_html .= '<p>' . $tags_text . ': ';
+					}
+					
+
+					$res = explode("|", $v['art_tags']);
+					$res_safe = array();
+					$length = count($res);
+					for ($i = 0; $i < $length; $i++) 
+					{
+  						$res[$i] = trim($res[$i]);
+  						if ($res[$i] != '')
+  						{
+  							$res_safe[$i] = urlencode($res[$i]);
+  							$art_tags_html .= '<a href=\"' . FWURL . 'tag/' . $res_safe[$i] . '">' . $res[$i] . '</a>, ';
+  						}
+					}
+					$art_tags_html = substr_replace($art_tags_html, "", -2);
+					$art_tags_html .= '</p>';
+					$result .= $art_tags_html;
+				}
+// TAGS END
+
+
+$result .= (($v["article_extended"] != "") ? 
 			'<a href="' . $v["site_url"] . $settings_site0 . '/more/' . $v["article_id"] . '" class="btn">' . $read_more . '</a>'
 : '') .
 		'</div>
 	</div>
 
 </article>';
-
 			}
 
 		}
