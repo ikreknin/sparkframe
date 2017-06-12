@@ -27,4 +27,6 @@ Another CMS
 
 * XAMPP Offline Demo Download: [http://sparkframe.id.lv/xampp/xampp_sf310_demo.zip](http://sparkframe.id.lv/xampp/xampp_sf310_demo.zip)
 
+[![Watch the video](http://img.youtube.com/vi/oMYPWIqWv8M/0.jpg)](https://www.youtube.com/watch?v=oMYPWIqWv8M)
+
 ( [https://sourceforge.net/projects/sparkframe/](https://sourceforge.net/projects/sparkframe/) )
