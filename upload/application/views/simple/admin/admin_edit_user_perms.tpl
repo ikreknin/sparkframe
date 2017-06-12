@@ -16,9 +16,9 @@
 <table class="notable">
 <!-- START perms -->
 <tr>
-<td class="notable">{perm_name}</td>
-<td class="notable"><img src="{site_url}application/views/default/img/{perm_level}.png" width="16" height="16" alt="{perm_alt}" /></td>
-<td class="notable">
+<td class="notable">{perm_name} &nbsp; </td>
+<td class="notable"> &nbsp; <img src="{site_url}application/views/default/img/{perm_level}.png" width="16" height="16" alt="{perm_alt}" /></td>
+<td class="notable">  &nbsp; 
 <select name="perm_{perm_id}">
 <option value="1" {selected_1}>{allow}</option>
 <option value="0" {selected_0}>{deny}</option>

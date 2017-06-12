@@ -58,7 +58,6 @@
 		{jquery}
 
 		{editor}
-		{tinybrowser}
 		{bbcodeeditor}
 
 		<script src="{VIEWDIR}js/jquery-migrate-1.2.1.min.js"></script>

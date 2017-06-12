@@ -119,7 +119,7 @@ class Sitecontroller
 			$this->registry->library('template')->page()->addTag('edit_articles', $this->registry->library('lang')->line('edit_articles'));
 			$this->registry->library('template')->page()->addTag('categories_text', $this->registry->library('lang')->line('categories_text'));
 			$this->registry->library('template')->page()->addTag('forum_categories_list', $this->registry->library('lang')->line('forum_categories_list'));
-			$this->registry->library('template')->page()->addTag('settings', $this->registry->library('lang')->line('settings'));
+			$this->registry->library('template')->page()->addTag('settings_text', $this->registry->library('lang')->line('settings'));
 			$this->registry->library('template')->page()->addTag('pages_text', $this->registry->library('lang')->line('pages_text'));
 			$this->registry->library('template')->page()->addTag('blocks_text', $this->registry->library('lang')->line('blocks_text'));
 			$this->registry->library('template')->page()->addTag('change_password', $this->registry->library('lang')->line('change_password'));
@@ -188,82 +188,52 @@ class Sitecontroller
 			}
 			if (false)
 			{
-				$this->registry->library('template')->page()->addTag('editor', '<script type="text/javascript" src="' . FWURL . 'js/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript">
-tinyMCE.init({
-	remove_script_host : false,
-	convert_urls : false,
-
-	mode : "textareas",
-	theme : "advanced",
-	theme_advanced_toolbar_location : "top",
-	file_browser_callback : "tinyBrowser",
-	plugins : "codehighlighting, paste, emotions",
-	theme_advanced_buttons1 : "bold, italic, underline, separator, undo, redo, separator, link, unlink, separator, image, separator, forecolor, separator, styleselect, removeformat, cleanup, code, separator, syntaxhl",
-	theme_advanced_buttons2 : "bullist, numlist, separator, outdent, indent, separator, hr, separator, sub, sup, separator, emotions, charmap, codehighlighting",
-		theme_advanced_buttons3 :"",
-	remove_linebreaks : false,
-	extended_valid_elements : "textarea[cols|rows|disabled|name|readonly|class]"
-});
+				$this->registry->library('template')->page()->addTag('editor', '<script type="text/javascript" src="' . FWURL . 'js/tinymce/tinymce.min.js"></script>
+<script>
+tinymce.init({
+    selector: "textarea",
+    theme: "modern",
+    plugins: [
+         "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker sh4tinymce",
+         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+         "save table contextmenu directionality emoticons template paste textcolor"
+   ],
+   toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons | sh4tinymce", 
+   style_formats: [
+        {title: \'Bold text\', inline: \'b\'},
+        {title: \'Red text\', inline: \'span\', styles: {color: \'#ff0000\'}},
+        {title: \'Red header\', block: \'h1\', styles: {color: \'#ff0000\'}},
+        {title: \'Example 1\', inline: \'span\', classes: \'example1\'},
+        {title: \'Example 2\', inline: \'span\', classes: \'example2\'},
+        {title: \'Table styles\'},
+        {title: \'Table row 1\', selector: \'tr\', classes: \'tablerow1\'}
+    ]
+ }); 
 </script>');
-				$this->registry->library('template')->page()->addTag('tinybrowser', '<script src="' . FWURL . 'js/tiny_mce/plugins/tinybrowser/tb_tinymce.js.php" type="text/javascript"></script>');
 			}
 			else
 			{
 				$this->registry->library('template')->page()->addTag('editor', '');
-				$this->registry->library('template')->page()->addTag('tinybrowser', '');
 			}
 			if (true)
 			{
-				$this->registry->library('template')->page()->addTag('highlighter', '<link href="' . FWURL . 'js/syntaxhighlighter/styles/shCore.css" rel="stylesheet" type="text/css"/>
-<link href="' . FWURL . 'js/syntaxhighlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css"/>
-<script src="' . FWURL . 'js/syntaxhighlighter/scripts/shCore.js" type="text/javascript"/></script>
-<script src="' . FWURL . 'js/syntaxhighlighter/scripts/shAutoloader.js" type="text/javascript"/></script>
-<script language="javascript">
-function path()
-{
-  var args = arguments,
-      result = [];
+				$this->registry->library('template')->page()->addTag('highlighter', '
+<link href="' . FWURL . '/js/ckeditor/plugins/codesnippet/lib/highlight/styles/dark.css" rel="stylesheet">
+<script src="' . FWURL . '/js/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 
-  for(var i = 0; i != (args.length-1); i++)
-     result.push(
-args[i].replace("@","' . FWURL . 'js/syntaxhighlighter/scripts/"));
-
-  return result
-};
-</script>
-<script type="text/javascript">
-SyntaxHighlighter.config.bloggerMode = true;
-SyntaxHighlighter.config.clipboardSwf = "' . FWURL . 'js/syntaxhighlighter/scripts/clipboard.swf"
-
-SyntaxHighlighter.autoloader.apply(null, path(
-  "applescript            @shBrushAppleScript.js",
-  "actionscript3 as3      @shBrushAS3.js",
-  "bash shell             @shBrushBash.js",
-  "coldfusion cf          @shBrushColdFusion.js",
-  "cpp c                  @shBrushCpp.js",
-  "c# c-sharp csharp      @shBrushCSharp.js",
-  "css                    @shBrushCss.js",
-  "delphi pascal          @shBrushDelphi.js",
-  "diff patch pas         @shBrushDiff.js",
-  "erl erlang             @shBrushErlang.js",
-  "groovy                 @shBrushGroovy.js",
-  "java                   @shBrushJava.js",
-  "jfx javafx             @shBrushJavaFX.js",
-  "js jscript javascript  @shBrushJScript.js",
-  "perl pl                @shBrushPerl.js",
-  "php                    @shBrushPhp.js",
-  "text plain             @shBrushPlain.js",
-  "py python              @shBrushPython.js",
-  "ruby rails ror rb      @shBrushRuby.js",
-  "sass scss              @shBrushSass.js",
-  "scala                  @shBrushScala.js",
-  "sql                    @shBrushSql.js",
-  "vb vbnet               @shBrushVb.js",
-  "xml xhtml xslt html    @shBrushXml.js",
-  "xml                    @shBrushXml.js"
-));
-SyntaxHighlighter.all()
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shCore.js"></script>
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shBrushCss.js"></script>
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shBrushPhp.js"></script>
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shBrushCpp.js"></script>
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shBrushCSharp.js"></script>
+<link href="' . FWURL . 'js/syntaxhighlighter/styles/shCore.css" rel="stylesheet" type="text/css" />
+<link href="' . FWURL . 'js/syntaxhighlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+<script>
+$(document).ready(function () {
+  SyntaxHighlighter.all();   
+});
 </script>
 ');
 			}

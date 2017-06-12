@@ -142,3 +142,8 @@ Version history:
 - 3.0.6
 1. Added Simple theme (Admin Control Panel)
 2. sanitizeDataX($data) function added (database.php) to prevent XSS attacks
+- 3.0.7
+1. CKEditor (4.4.7) updated
+2. TinyMCE (4.1.7) updated
+3. KCFinder (3.12) added
+4. SyntaxHighlighter (3.0.83) updated (with SH4TinyMCE)

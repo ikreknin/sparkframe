@@ -65,7 +65,7 @@
 								<li class="dropdown-submenu">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown">{system}</a>
 									<ul class="dropdown-menu">
-										<li><a href="{site_url}admin/settings">{settings}</a></li>
+										<li><a href="{site_url}admin/settings">{settings_text}</a></li>
 										<li><a href="{site_url}admin/pages_list">{pages_text}</a></li>
 										<li><a href="{site_url}admin/blocks_list">{blocks_text}</a></li>
 										<li><a href="{site_url}useraccount/change_password">{change_password}</a></li>

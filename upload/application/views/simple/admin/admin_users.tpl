@@ -9,8 +9,8 @@
 <p>{pagination}</p>
 <br />
 
-<table>
-<tr>
+<table class="table table-bordered table-hover">
+<tr class="info">
 <td>{username_text}</a></td>
 <td>{registration}</a></td>
 {if '{admin_level}'=='1'}

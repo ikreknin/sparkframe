@@ -80,7 +80,7 @@ class Pagecontroller
 			$this->registry->library('template')->page()->addTag('comments_text', $this->registry->library('lang')->line('comments_text'));
 			$this->registry->library('template')->page()->addTag('categories_text', $this->registry->library('lang')->line('categories_text'));
 			$this->registry->library('template')->page()->addTag('forum_categories_list', $this->registry->library('lang')->line('forum_categories_list'));
-			$this->registry->library('template')->page()->addTag('settings', $this->registry->library('lang')->line('settings'));
+			$this->registry->library('template')->page()->addTag('settings_text', $this->registry->library('lang')->line('settings'));
 			$this->registry->library('template')->page()->addTag('pages_text', $this->registry->library('lang')->line('pages_text'));
 			$this->registry->library('template')->page()->addTag('blocks_text', $this->registry->library('lang')->line('blocks_text'));
 			$this->registry->library('template')->page()->addTag('change_password', $this->registry->library('lang')->line('change_password'));
@@ -117,9 +117,35 @@ class Pagecontroller
 			$this->registry->library('template')->page()->addTag('blogCalendar', '');
 			$this->registry->library('template')->page()->addTag('jquery', '<script type="text/javascript" src="' . FWURL . SUBDIR . 'js/jquery/' . $this->registry->setting('settings_jquery') . '"></script>');
 			$this->registry->library('template')->page()->addTag('editor', '');
-			$this->registry->library('template')->page()->addTag('tinybrowser', '');
 			$this->registry->library('template')->page()->addTag('bbcodeeditor', '');
-			$this->registry->library('template')->page()->addTag('highlighter', '');
+
+			if (true)
+			{
+				$this->registry->library('template')->page()->addTag('highlighter', '
+<link href="' . FWURL . '/js/ckeditor/plugins/codesnippet/lib/highlight/styles/dark.css" rel="stylesheet">
+<script src="' . FWURL . '/js/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shCore.js"></script>
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shBrushCss.js"></script>
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shBrushPhp.js"></script>
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shBrushCpp.js"></script>
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shBrushCSharp.js"></script>
+<link href="' . FWURL . 'js/syntaxhighlighter/styles/shCore.css" rel="stylesheet" type="text/css" />
+<link href="' . FWURL . 'js/syntaxhighlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+<script>
+$(document).ready(function () {
+  SyntaxHighlighter.all();   
+});
+</script>
+');
+			}
+			else
+			{
+				$this->registry->library('template')->page()->addTag('highlighter', '');
+			}
+
 			$this->registry->library('hook')->init();
 			$this->registry->library('template')->page()->addTag('footer_hook', '');
 			$footer_hook = $this->registry->library('hook')->call('footer_hook');

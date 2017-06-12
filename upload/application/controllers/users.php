@@ -53,7 +53,7 @@ class Userscontroller
 			$this->registry->library('template')->page()->addTag('comments_text', $this->registry->library('lang')->line('comments_text'));
 			$this->registry->library('template')->page()->addTag('categories_text', $this->registry->library('lang')->line('categories_text'));
 			$this->registry->library('template')->page()->addTag('forum_categories_list', $this->registry->library('lang')->line('forum_categories_list'));
-			$this->registry->library('template')->page()->addTag('settings', $this->registry->library('lang')->line('settings'));
+			$this->registry->library('template')->page()->addTag('settings_text', $this->registry->library('lang')->line('settings'));
 			$this->registry->library('template')->page()->addTag('pages_text', $this->registry->library('lang')->line('pages_text'));
 			$this->registry->library('template')->page()->addTag('blocks_text', $this->registry->library('lang')->line('blocks_text'));
 			$this->registry->library('template')->page()->addTag('change_password', $this->registry->library('lang')->line('change_password'));
@@ -159,25 +159,28 @@ class Userscontroller
 			}
 			if (true)
 			{
-				$this->registry->library('template')->page()->addTag('editor', '<script type="text/javascript" src="' . FWURL . SUBDIR . 'js/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript">
-tinyMCE.init({
-	remove_script_host : false,
-	convert_urls : false,
-
-	mode : "textareas",
-	theme : "advanced",
-	theme_advanced_toolbar_location : "top",
-	file_browser_callback : "tinyBrowser",
-	plugins : "syntaxhl",
-	theme_advanced_buttons1 : "bold, italic, underline, separator, undo, redo, separator, link, unlink, separator, image, separator, forecolor, separator, styleselect, removeformat, cleanup, code, separator, syntaxhl",
-	theme_advanced_buttons2 : "bullist, numlist, separator, outdent, indent, separator, hr, separator, sub, sup, separator, charmap",
-	theme_advanced_buttons3 : "",
-	remove_linebreaks : false,
-	extended_valid_elements : "textarea[cols|rows|disabled|name|readonly|class]"
-});
+				$this->registry->library('template')->page()->addTag('editor', '<script type="text/javascript" src="' . FWURL . 'js/tinymce/tinymce.min.js"></script>
+<script>
+tinymce.init({
+    selector: "textarea",
+    theme: "modern",
+    plugins: [
+         "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker sh4tinymce",
+         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+         "save table contextmenu directionality emoticons template paste textcolor"
+   ],
+   toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons | sh4tinymce", 
+   style_formats: [
+        {title: \'Bold text\', inline: \'b\'},
+        {title: \'Red text\', inline: \'span\', styles: {color: \'#ff0000\'}},
+        {title: \'Red header\', block: \'h1\', styles: {color: \'#ff0000\'}},
+        {title: \'Example 1\', inline: \'span\', classes: \'example1\'},
+        {title: \'Example 2\', inline: \'span\', classes: \'example2\'},
+        {title: \'Table styles\'},
+        {title: \'Table row 1\', selector: \'tr\', classes: \'tablerow1\'}
+    ]
+ }); 
 </script>');
-				$this->registry->library('template')->page()->addTag('tinybrowser', '<script src="' . FWURL . SUBDIR . 'js/tiny_mce/plugins/tinybrowser/tb_tinymce.js.php" type="text/javascript"></script>');
 			}
 			if (true)
 			{

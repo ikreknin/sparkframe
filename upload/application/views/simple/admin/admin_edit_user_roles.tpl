@@ -14,11 +14,11 @@
 <form action="../editing_user_roles/{user_id}" method="post">
 
 <table border="0" cellpadding="5" cellspacing="0">
-<tr><th></th><th>{member}</th><th>{not_member}</th></tr>
+<tr><th></th><th>{member} &nbsp; </th><th>{not_member} &nbsp; </th></tr>
 
 <!-- START roles -->
 <tr>
-<td><label>{role_name}</label></td>
+<td><label>{role_name} &nbsp; </label></td>
 <td><input type="radio" name="role_{role_id}" id="role_{role_id}_1" value="{value_1}" {checked_1} /></td>
 <td><input type="radio" name="role_{role_id}" id="role_{role_id}_0" value="{value_2}" {checked_2} /></td>
 </tr>

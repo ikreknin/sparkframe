@@ -82,6 +82,7 @@ class Admincontroller
 			if ($this->ckfinderOn && ($this->registry->library('authenticate')->isAdmin() == true || $this->registry->library('authenticate')->hasPermission('access_admin') == true))
 			{
 				$_SESSION['CKFinder'] = true;
+				$_SESSION['KCFINDER'] = array('disabled' => false);
 			}
 			else
 			{
@@ -134,7 +135,7 @@ class Admincontroller
 			$this->registry->library('template')->page()->addTag('is_children_category', $this->registry->library('lang')->line('is_children_category'));
 			$this->registry->library('template')->page()->addTag('yes', $this->registry->library('lang')->line('yes'));
 			$this->registry->library('template')->page()->addTag('no', $this->registry->library('lang')->line('no'));
-			$this->registry->library('template')->page()->addTag('settings', $this->registry->library('lang')->line('settings'));
+			$this->registry->library('template')->page()->addTag('settings_text', $this->registry->library('lang')->line('settings'));
 			$this->registry->library('template')->page()->addTag('parent_id_text', $this->registry->library('lang')->line('parent_id_text'));
 			$this->registry->library('template')->page()->addTag('parent_category_text', $this->registry->library('lang')->line('parent_category_text'));
 			$this->registry->library('template')->page()->addTag('category_name_text', $this->registry->library('lang')->line('category_name_text'));
@@ -275,79 +276,62 @@ class Admincontroller
 			}
 			$this->registry->library('template')->page()->addTag('editor_type', $this->registry->setting('settings_editor'));
 			$this->registry->library('template')->page()->addTag('editor', '');
-			$this->registry->library('template')->page()->addTag('tinybrowser', '');
 			$this->registry->library('template')->page()->addTag('highlighter', '');
 			if (($this->seg_1 == 'create_article' || $this->seg_1 == 'creating_article' || $this->seg_1 == 'edit_article' || $this->seg_1 == 'editing_article' || ($this->seg_1 == 'edit_page') || ($this->seg_1 == 'editing_page') || ($this->seg_1 == 'create_page') || ($this->seg_1 == 'edit_block') || ($this->seg_1 == 'editing_block') || ($this->seg_1 == 'create_block')) && $this->registry->setting('settings_editor') == 't')
 			{
-				$this->registry->library('template')->page()->addTag('editor', '<script type="text/javascript" src="' . FWURL . 'js/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript">
-tinyMCE.init({
-
-	remove_script_host : false,
-	convert_urls : false,
-
-	mode : "textareas",
-	theme : "advanced",
-	theme_advanced_toolbar_location : "top",
-	file_browser_callback : "tinyBrowser",
-	plugins : "codehighlighting, paste, emotions",
-	theme_advanced_buttons1 : "bold, italic, underline, separator, undo, redo, separator, link, unlink, separator, image, separator, forecolor, separator, styleselect, removeformat, cleanup, code, separator, syntaxhl",
-	theme_advanced_buttons2 : "bullist, numlist, separator, outdent, indent, separator, hr, separator, sub, sup, separator, emotions, charmap, codehighlighting",
-		theme_advanced_buttons3 :"",
-	remove_linebreaks : false,
-	extended_valid_elements : "textarea[cols|rows|disabled|name|readonly|class]"
-});
+				$this->registry->library('template')->page()->addTag('editor', '<script type="text/javascript" src="' . FWURL . 'js/tinymce/tinymce.min.js"></script>
+<script>
+tinymce.init({
+    file_browser_callback: function(field, url, type, win) {
+        tinyMCE.activeEditor.windowManager.open({
+            file: \'' . FWURL . 'js/kcfinder/browse.php?opener=tinymce4&field=\' + field + \'&type=\' + type,
+            title: \'KCFinder\',
+            width: 700,
+            height: 500,
+            inline: true,
+            close_previous: false
+        }, {
+            window: win,
+            input: field
+        });
+        return false;
+    },
+    selector: "textarea",
+    theme: "modern",
+    plugins: [
+         "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker sh4tinymce",
+         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+         "save table contextmenu directionality emoticons template paste textcolor"
+   ],
+   toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons | sh4tinymce", 
+   style_formats: [
+        {title: \'Bold text\', inline: \'b\'},
+        {title: \'Red text\', inline: \'span\', styles: {color: \'#ff0000\'}},
+        {title: \'Red header\', block: \'h1\', styles: {color: \'#ff0000\'}},
+        {title: \'Example 1\', inline: \'span\', classes: \'example1\'},
+        {title: \'Example 2\', inline: \'span\', classes: \'example2\'},
+        {title: \'Table styles\'},
+        {title: \'Table row 1\', selector: \'tr\', classes: \'tablerow1\'}
+    ]
+ }); 
 </script>');
-				$this->registry->library('template')->page()->addTag('tinybrowser', '<script src="' . FWURL . 'js/tiny_mce/plugins/tinybrowser/tb_tinymce.js.php" type="text/javascript"></script>');
-				$this->registry->library('template')->page()->addTag('highlighter', '<link href="' . FWURL . 'js/syntaxhighlighter/styles/shCore.css" rel="stylesheet" type="text/css"/>
-<link href="' . FWURL . 'js/syntaxhighlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css"/>
-<script src="' . FWURL . 'js/syntaxhighlighter/scripts/shCore.js" type="text/javascript"/></script>
-<script src="' . FWURL . 'js/syntaxhighlighter/scripts/shAutoloader.js" type="text/javascript"/></script>
-<script language="javascript">
-function path()
-{
-  var args = arguments,
-      result = [];
+				$this->registry->library('template')->page()->addTag('highlighter', '
+<link href="' . FWURL . '/js/ckeditor/plugins/codesnippet/lib/highlight/styles/dark.css" rel="stylesheet">
+<script src="' . FWURL . '/js/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 
-  for(var i = 0; i != (args.length-1); i++)
-     result.push(
-args[i].replace("@","' . FWURL . 'js/syntaxhighlighter/scripts/"));
-
-  return result
-};
-</script>
-<script type="text/javascript">
-SyntaxHighlighter.config.bloggerMode = true;
-SyntaxHighlighter.config.clipboardSwf = "' . FWURL . 'js/syntaxhighlighter/scripts/clipboard.swf"
-
-SyntaxHighlighter.autoloader.apply(null, path(
-  "applescript            @shBrushAppleScript.js",
-  "actionscript3 as3      @shBrushAS3.js",
-  "bash shell             @shBrushBash.js",
-  "coldfusion cf          @shBrushColdFusion.js",
-  "cpp c                  @shBrushCpp.js",
-  "c# c-sharp csharp      @shBrushCSharp.js",
-  "css                    @shBrushCss.js",
-  "delphi pascal          @shBrushDelphi.js",
-  "diff patch pas         @shBrushDiff.js",
-  "erl erlang             @shBrushErlang.js",
-  "groovy                 @shBrushGroovy.js",
-  "java                   @shBrushJava.js",
-  "jfx javafx             @shBrushJavaFX.js",
-  "js jscript javascript  @shBrushJScript.js",
-  "perl pl                @shBrushPerl.js",
-  "php                    @shBrushPhp.js",
-  "text plain             @shBrushPlain.js",
-  "py python              @shBrushPython.js",
-  "ruby rails ror rb      @shBrushRuby.js",
-  "sass scss              @shBrushSass.js",
-  "scala                  @shBrushScala.js",
-  "sql                    @shBrushSql.js",
-  "vb vbnet               @shBrushVb.js",
-  "xml xhtml xslt html    @shBrushXml.js",
-  "xml                    @shBrushXml.js"
-));
-SyntaxHighlighter.all()
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shCore.js"></script>
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shBrushCss.js"></script>
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shBrushPhp.js"></script>
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shBrushCpp.js"></script>
+<script type="text/javascript" src="' . FWURL . 'js/syntaxhighlighter/scripts/shBrushCSharp.js"></script>
+<link href="' . FWURL . 'js/syntaxhighlighter/styles/shCore.css" rel="stylesheet" type="text/css" />
+<link href="' . FWURL . 'js/syntaxhighlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+<script>
+$(document).ready(function () {
+  SyntaxHighlighter.all();   
+});
 </script>
 ');
 			}

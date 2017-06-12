@@ -1,3 +1,4 @@
+{highlighter}
 	<!-- BEGIN FOOTER
 	================================================== -->
 				<footer id="footer" class="footer">

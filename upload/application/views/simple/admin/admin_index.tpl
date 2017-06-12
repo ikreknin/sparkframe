@@ -24,7 +24,7 @@
 <p><a href="{site_url}admin/shops_list">{shops_text}</a></p>
 
 <h3>{system}</h3>
-<p><a href="{site_url}admin/settings">{settings}</a></p>
+<p><a href="{site_url}admin/settings">{settings_text}</a></p>
 <p><a href="{site_url}admin/pages_list">{pages_text}</a></p>
 <p><a href="{site_url}admin/blocks_list">{blocks_text}</a></p>
 <p><a href="{site_url}useraccount/change_password">{change_password}</a></p>
