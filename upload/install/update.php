@@ -184,6 +184,7 @@ if (count($updateFilesToUse) !=0)
 	if($updateFilesToUse[0] == 'u305.php') { $controller = new u305($registry, true); }
 	if($updateFilesToUse[0] == 'u306.php') { $controller = new u306($registry, true); }
 	if($updateFilesToUse[0] == 'u307.php') { $controller = new u307($registry, true); }
+	if($updateFilesToUse[0] == 'u308.php') { $controller = new u308($registry, true); }
 }
 else
 {

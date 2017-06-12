@@ -20,7 +20,7 @@
 
 <table>
 <!-- START perms -->
-<tr><td>{perm_name}</td><td class="notable"><img src="{site_url}application/views/default/img/{perm_level}.png" width="16" height="16" alt="{perm_alt}" /></td></tr>
+<tr><td>{perm_name}</td><td class="notable"> &nbsp; <img src="{site_url}application/views/default/img/{perm_level}.png" width="16" height="16" alt="{perm_alt}" /></td></tr>
 <!-- END perms -->
 </table>
 

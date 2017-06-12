@@ -560,7 +560,7 @@ class Helper
 	public function multiCatList($ID, $sys_cms)
 	{
 		$prefix = $this->prefix = Registry :: library('db')->getPrefix();
-		$tempTree = $t;
+		$tempTree = '';
 		$sql = 'SELECT *, COUNT(f_shop_id) AS `shop_count_2`
 		FROM ' . $prefix . 'shops
 		WHERE f_parent_shop_id = ' . $ID . '
@@ -575,7 +575,7 @@ class Helper
 				if ($v['shop_count_2'] != 0)
 				{
 					$tempTree .= $v['f_shop_id'] . ",";
-					$tempTree .= $this->multiCatList($v['f_shop_id'], $tempTree);
+					$tempTree .= $this->multiCatList($v['f_shop_id'], $sys_cms);
 // Add to the temporary local tree
 				}
 			}

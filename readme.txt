@@ -147,3 +147,5 @@ Version history:
 2. TinyMCE (4.1.7) updated
 3. KCFinder (3.12) added
 4. SyntaxHighlighter (3.0.83) updated (with SH4TinyMCE)
+- 3.0.8
+1. Table with ISO 4217 Currency Codes added
