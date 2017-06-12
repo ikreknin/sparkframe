@@ -130,3 +130,5 @@ Version history:
 1. rutube.ru support added
 - 3.0.2
 1. Widget support added in user profiles
+- 3.0.3
+1. Jssor Slider added (www.jssor.com)
