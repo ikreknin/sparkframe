@@ -391,9 +391,9 @@ class Pagecontroller
 			$this->registry->library('template')->page()->addTag('terms_of_services', $this->registry->library('lang')->line('terms_of_services'));
 			$this->registry->library('template')->page()->addTag('terms_of_services_text', $this->registry->library('lang')->line('terms_of_services_text'));
 			$this->registry->library('template')->page()->addTag('agree_terms_of_services', $this->registry->library('lang')->line('agree_terms_of_services'));
-			$this->registry->library('template')->page()->addTag('username', $this->registry->library('db')->sanitizeData($_POST['username']));
-			$this->registry->library('template')->page()->addTag('email', $this->registry->library('db')->sanitizeData($_POST['email']));
-			$this->registry->library('template')->page()->addTag('name', $this->registry->library('db')->sanitizeData($_POST['name']));
+			$this->registry->library('template')->page()->addTag('username', $this->registry->library('db')->sanitizeDataX($_POST['username']));
+			$this->registry->library('template')->page()->addTag('email', $this->registry->library('db')->sanitizeDataX($_POST['email']));
+			$this->registry->library('template')->page()->addTag('name', $this->registry->library('db')->sanitizeDataX($_POST['name']));
 			$this->registry->library('template')->page()->addTag('accept_terms', $this->registry->library('db')->sanitizeData($_POST['accept_terms']));
 			$checked = '';
 			if ($this->registry->library('db')->sanitizeData($_POST['accept_terms']) == 'y')
@@ -622,6 +622,14 @@ class Pagecontroller
 
 	private function staticPage($data)
 	{
+// url ?
+		if ($data['web_url'] != '')
+		{
+			echo '<meta http-equiv="refresh" content="0;url=http://' . $data['web_url'] . '">';
+		}
+		else
+		{
+
 		$this->registry->library('template')->page()->addTag('pagetitle', $data['page_title']);
 		$this->registry->library('template')->page()->addTag('heading', $data['page_title']);
 		$newContent = str_replace('{VIEWDIR}', FWURL . APPDIR . '/views/' . $this->registry->setting('theme') . '/', $data['page_content']);
@@ -635,6 +643,7 @@ class Pagecontroller
 		$this->registry->library('template')->addWidgetTag('nivoslider_widget', $w);
 //
 		$this->registry->library('template')->build($st_header . '.tpl', $st_main . '.tpl', $st_footer . '.tpl');
+		}
 	}
 
 }

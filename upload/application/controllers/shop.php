@@ -257,8 +257,8 @@ tinyMCE.init({
 			}
 			if ($this->seg_1 == 'newopinion' && false)
 			{
-				$this->registry->library('template')->page()->addTag('bbcodeeditor', "<link rel=\"stylesheet\" href=\"" . FWURL . "js/minified/themes/default.min.css\" type=\"text/css\" media=\"all\" />
-<script src=\"" . FWURL . "js/minified/jquery.sceditor.bbcode.min.js\"></script>
+				$this->registry->library('template')->page()->addTag('bbcodeeditor', "<link rel=\"stylesheet\" href=\"" . FWURL . "js/sceditor/minified/themes/default.min.css\" type=\"text/css\" media=\"all\" />
+<script src=\"" . FWURL . "js/sceditor/minified/jquery.sceditor.bbcode.min.js\"></script>
 <script>
 	var loadCSS = function(url, callback){
 		var link = document.createElement('link');
@@ -279,11 +279,11 @@ tinyMCE.init({
 				plugins: 'bbcode',
 				toolbar: \"bold,italic,underline,strike|quote,link,unlink,image,emoticon|maximize,source\",
 				emoticonsRoot: \"" . FWURL . "js/\",
-				style: \"" . FWURL . "js/minified/jquery.sceditor.default.min.css\"
+				style: \"" . FWURL . "js/sceditor/minified/jquery.sceditor.default.min.css\"
 			});
 		};
 		$(\"#theme\").change(function() {
-			var theme = \"" . FWURL . "js/minified/themes/default.min.css\";
+			var theme = \"" . FWURL . "js/sceditor/minified/themes/default.min.css\";
 			$(\"textarea\").sceditor(\"instance\").destroy();
 			$(\"link:first\").remove();
 			$(\"#theme-style\").remove();
@@ -1035,7 +1035,7 @@ tinyMCE.init({
 				$product_id = $this->registry->library('db')->sanitizeData($_POST['productID']);
 				$data['p_product_id'] = $product_id;
 				$data['p_user_id'] = $this->registry->library('authenticate')->getUserID();
-				$data['p_body'] = $this->registry->library('db')->sanitizeData($_POST['body']);
+				$data['p_body'] = $this->registry->library('db')->sanitizeDataX($_POST['body']);
 				$data['p_opinion_date'] = date("Y-m-d H:i:s", time());
 				$sql = 'SELECT *
 				FROM ' . $this->prefix . 'shop_products

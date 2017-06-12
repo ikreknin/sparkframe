@@ -1,0 +1,78 @@
+.footer-bar{
+	background-color: #292c2f;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+	box-sizing: border-box;
+	width: 100%;
+	font: bold 16px sans-serif;
+	text-align: left;
+	padding: 50px 60px;
+	margin-top: 80px;
+	overflow: hidden;
+}
+
+.footer-bar .footer-text{
+	color:  #8f9296;
+	font-size: 14px;
+	font-weight: normal;
+	margin: 0;
+}
+
+/* Footer search */
+
+.footer-bar .footer-search{
+	float: right;
+}
+
+/* The search form */
+
+.footer-bar form{
+	position: relative;
+}
+
+.footer-bar form input{
+	display: block;
+	border-radius: 3px;
+	box-sizing: border-box;
+	background-color:  #1f2022;
+	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
+	border: none;
+
+	font: inherit;
+	font-size: 14px;
+	font-weight: normal;
+	color:  #d1d2d2;
+
+	width: 500px;
+	padding: 18px 50px 18px 18px;
+}
+
+.footer-bar form input:focus{
+	outline: none;
+}
+
+/* Changing the placeholder color */
+
+.footer-bar form input::-webkit-input-placeholder {
+	color:  #5c666b;
+}
+
+.footer-bar form input::-moz-placeholder {
+	opacity: 1;
+	color:  #5c666b;
+}
+
+.footer-bar form input:-ms-input-placeholder{
+	color:  #5c666b;
+}
+
+/* The magnify glass icon */
+
+.footer-bar form i{
+	width: 18px;
+	height: 18px;
+	position: absolute;
+	top: 16px;
+	right: 18px;
+	color: #d1d2d2;
+	font-size: 18px;
+}

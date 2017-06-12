@@ -273,8 +273,8 @@ SyntaxHighlighter.all()
 			}
 			if ($this->seg_1 == 'more')
 			{
-				$this->registry->library('template')->page()->addTag('bbcodeeditor', "<link rel=\"stylesheet\" href=\"" . FWURL . "js/minified/themes/default.min.css\" type=\"text/css\" media=\"all\" />
-<script src=\"" . FWURL . "js/minified/jquery.sceditor.bbcode.min.js\"></script>
+				$this->registry->library('template')->page()->addTag('bbcodeeditor', "<link rel=\"stylesheet\" href=\"" . FWURL . "js/sceditor/minified/themes/default.min.css\" type=\"text/css\" media=\"all\" />
+<script src=\"" . FWURL . "js/sceditor/minified/jquery.sceditor.bbcode.min.js\"></script>
 <script>
 	var loadCSS = function(url, callback){
 		var link = document.createElement('link');
@@ -295,11 +295,11 @@ SyntaxHighlighter.all()
 				plugins: 'bbcode',
 				toolbar: \"bold,italic,underline,strike|quote,link,unlink,image,emoticon|maximize,source\",
 				emoticonsRoot: \"" . FWURL . "js/\",
-				style: \"" . FWURL . "js/minified/jquery.sceditor.default.min.css\"
+				style: \"" . FWURL . "js/sceditor/minified/jquery.sceditor.default.min.css\"
 			});
 		};
 		$(\"#theme\").change(function() {
-			var theme = \"" . FWURL . "js/minified/themes/default.min.css\";
+			var theme = \"" . FWURL . "js/sceditor/minified/themes/default.min.css\";
 			$(\"textarea\").sceditor(\"instance\").destroy();
 			$(\"link:first\").remove();
 			$(\"#theme-style\").remove();
@@ -440,6 +440,22 @@ SyntaxHighlighter.all()
 	private function index()
 	{
 		$this->registry->library('template')->page()->addTag('pagetitle', $this->registry->setting('settings_cms_title'));
+// for Search redirect if absent or too short
+		$urlSegments = $this->registry->getURLSegments();
+		$_SESSION['redirect'] = '';
+		if ($this->registry->library('db')->sanitizeData($urlSegments[0]) != '')
+		{
+			$_SESSION['redirect'] .= $this->registry->library('db')->sanitizeData($urlSegments[0]);
+		}
+		if ($this->registry->library('db')->sanitizeData($urlSegments[1]) != '')
+		{
+			$_SESSION['redirect'] .= '/' . $this->registry->library('db')->sanitizeData($urlSegments[1]);
+		}
+		if ($this->registry->library('db')->sanitizeData($urlSegments[2]) != '')
+		{
+			$_SESSION['redirect'] .= '/' . $this->registry->library('db')->sanitizeData($urlSegments[2]);
+		}
+
 // CRON
 		$delta = time() - strtotime($this->registry->setting('settings_cron'));
 //	60 s x 60 m x 24 h = 86400 (once a day)
@@ -495,6 +511,7 @@ SyntaxHighlighter.all()
 						$articles[$i]['author_name'] = $v['username'];
 						$articles[$i]['category_id'] = $v['categories'];
 						$articles[$i]['category_name'] = $v['category_name'];
+						$articles[$i]['category_image_name'] = $v['category_image_name'];
 						$articles[$i]['comments_count'] = $v['comments_count'];
 // tree of categories?
 						if ($this->registry->setting('settings_one_cat') == 0)
@@ -547,6 +564,22 @@ SyntaxHighlighter.all()
 
 	private function more()
 	{
+// for Search redirect if absent or too short
+		$urlSegments = $this->registry->getURLSegments();
+		$_SESSION['redirect'] = '';
+		if ($this->registry->library('db')->sanitizeData($urlSegments[0]) != '')
+		{
+			$_SESSION['redirect'] .= $this->registry->library('db')->sanitizeData($urlSegments[0]);
+		}
+		if ($this->registry->library('db')->sanitizeData($urlSegments[1]) != '')
+		{
+			$_SESSION['redirect'] .= '/' . $this->registry->library('db')->sanitizeData($urlSegments[1]);
+		}
+		if ($this->registry->library('db')->sanitizeData($urlSegments[2]) != '')
+		{
+			$_SESSION['redirect'] .= '/' . $this->registry->library('db')->sanitizeData($urlSegments[2]);
+		}
+
 		if ($this->registry->library('authenticate')->isLoggedIn() == true || $this->registry->setting('settings_guests_allowed') == 1)
 		{
 			$this->registry->library('template')->page()->addTag('error_message', '');
@@ -830,11 +863,12 @@ SyntaxHighlighter.all()
 			$data = array();
 			$data['com_article_id'] = $this->registry->library('db')->sanitizeData($_POST['com_articleid']);
 			$data['user_id'] = $this->registry->library('authenticate')->getUserID();
-			$data['author'] = $this->registry->library('db')->sanitizeData($_POST['new_com_author']);
-			$data['author_email'] = $this->registry->library('db')->sanitizeData($_POST['email']);
-			$data['author_website'] = $this->registry->library('db')->sanitizeData($_POST['website']);
+			$data['author'] = $this->registry->library('db')->sanitizeDataX($_POST['new_com_author']);
+			$data['author_email'] = $this->registry->library('db')->sanitizeDataX($_POST['email']);
+			$data['author_website'] = $this->registry->library('db')->sanitizeDataX($_POST['website']);
 			$data['author_ip'] = getenv('REMOTE_ADDR');
-			$data['body'] = $this->registry->library('db')->sanitizeData($_POST['body']);
+// XSS
+			$data['body'] = $this->registry->library('db')->sanitizeDataX($_POST['body']);
 			$data['created'] = date("Y-m-d H:i:s", time());
 			if (($_POST['captcha'] == $_SESSION['captcha'] || $this->registry->library('authenticate')->getUserID() != 0) && $_POST['body'] != '')
 			{
@@ -895,6 +929,7 @@ SyntaxHighlighter.all()
 						$this->registry->library('template')->page()->addTag('create_time', $this->registry->library('helper')->convertTime($data['art_created']));
 						$this->registry->library('template')->page()->addTag('category_id', $data['category_id']);
 						$this->registry->library('template')->page()->addTag('category_name', $data['category_name']);
+						$this->registry->library('template')->page()->addTag('category_image_name', $data['category_image_name']);
 						$uid = $this->registry->library('authenticate')->getUserID();
 						$un = $this->registry->library('authenticate')->getUsername();
 						if ($un != '' && $uid > 0)
@@ -996,6 +1031,22 @@ SyntaxHighlighter.all()
 
 	private function page()
 	{
+// for Search redirect if absent or too short
+		$urlSegments = $this->registry->getURLSegments();
+		$_SESSION['redirect'] = '';
+		if ($this->registry->library('db')->sanitizeData($urlSegments[0]) != '')
+		{
+			$_SESSION['redirect'] .= $this->registry->library('db')->sanitizeData($urlSegments[0]);
+		}
+		if ($this->registry->library('db')->sanitizeData($urlSegments[1]) != '')
+		{
+			$_SESSION['redirect'] .= '/' . $this->registry->library('db')->sanitizeData($urlSegments[1]);
+		}
+		if ($this->registry->library('db')->sanitizeData($urlSegments[2]) != '')
+		{
+			$_SESSION['redirect'] .= '/' . $this->registry->library('db')->sanitizeData($urlSegments[2]);
+		}
+
 		if ($this->registry->library('authenticate')->isLoggedIn() == true || $this->registry->setting('settings_guests_allowed') == 1)
 		{
 			$condition = 'WHERE article_visible = 2';
@@ -1050,6 +1101,7 @@ SyntaxHighlighter.all()
 						$articles[$i]['author_name'] = $v['username'];
 						$articles[$i]['category_id'] = $v['category_id'];
 						$articles[$i]['category_name'] = $v['category_name'];
+						$articles[$i]['category_image_name'] = $v['category_image_name'];
 						$articles[$i]['comments_count'] = $v['comments_count'];
 						if ($v['url_title'] == '')
 						{
@@ -1244,6 +1296,7 @@ SyntaxHighlighter.all()
 						$articles[$i]['author_name'] = $v['username'];
 						$articles[$i]['category_id'] = $v['category_id'];
 						$articles[$i]['category_name'] = $v['category_name'];
+						$articles[$i]['category_image_name'] = $v['category_image_name'];
 						$articles[$i]['comments_count'] = $v['comments_count'];
 // tree of categories?
 						if ($this->registry->setting('settings_one_cat') == 0)
@@ -1292,7 +1345,22 @@ SyntaxHighlighter.all()
 		{
 			$search = trim($this->registry->library('db')->sanitizeData($_POST['search']));
 			$_SESSION['search'] = $search;
-			if ($search != '')
+			$redirect = '';
+			if ($_SESSION['redirect'] != '')
+			{
+				$redirect = $_SESSION['redirect'];
+			}
+
+			if ($search == '')
+			{
+				
+				$this->registry->redirectUser($redirect, $this->registry->library('lang')->line('search_absent'), $this->registry->library('lang')->line('search_absent_message'));
+			}
+			elseif (strlen($search) < 4)
+			{
+				$this->registry->redirectUser($redirect, $this->registry->library('lang')->line('search_short'), $this->registry->library('lang')->line('search_short_message'));
+			}
+			else
 			{
 				$pieces = explode(" ", $search);
 				reset($pieces);
@@ -1300,92 +1368,90 @@ SyntaxHighlighter.all()
 				{
 					$search_condition .= 'AND (article LIKE "%' . $value . '%" OR article_extended LIKE "%' . $value . '%" OR title LIKE "%' . $value . '%") ';
 				}
-			}
-			else
-			{
-				$search_condition = '';
-			}
+
 // Selection of Articles
 // article_visible = enum "1"
-			$cache = $this->registry->library('db')->cacheQuery('SELECT *, COUNT(com_article_id) AS `comments_count`
-			FROM ' . $this->prefix . 'articles
-			LEFT JOIN ' . $this->prefix . 'users ON ' . $this->prefix . 'users.users_id = ' . $this->prefix . 'articles.author_id
-			LEFT JOIN ' . $this->prefix . 'categories ON ' . $this->prefix . 'categories.category_id = ' . $this->prefix . 'articles.categories
-			LEFT JOIN ' . $this->prefix . 'comments ON ' . $this->prefix . 'comments.com_article_id = ' . $this->prefix . 'articles.article_id
-			WHERE article_visible = 2
-			AND articles_sys = "' . $this->sys_cms . '"
-			' . $search_condition . '
-			GROUP BY article_id
-			ORDER BY pinned DESC, article_id DESC
-			LIMIT ' . $this->registry->setting('settings_rows_per_page'));
-			$num = $this->registry->library('db')->numRowsFromCache($cache);
-			if ($num != 0)
-			{
-				$articles = array();
-				$i = 0;
-				$data = $this->registry->library('db')->rowsFromCache($cache);
-				while ($i < $num)
+				$cache = $this->registry->library('db')->cacheQuery('SELECT *, COUNT(com_article_id) AS `comments_count`
+				FROM ' . $this->prefix . 'articles
+				LEFT JOIN ' . $this->prefix . 'users ON ' . $this->prefix . 'users.users_id = ' . $this->prefix . 'articles.author_id
+				LEFT JOIN ' . $this->prefix . 'categories ON ' . $this->prefix . 'categories.category_id = ' . $this->prefix . 'articles.categories
+				LEFT JOIN ' . $this->prefix . 'comments ON ' . $this->prefix . 'comments.com_article_id = ' . $this->prefix . 'articles.article_id
+				WHERE article_visible = 2
+				AND articles_sys = "' . $this->sys_cms . '"
+				' . $search_condition . '
+				GROUP BY article_id
+				ORDER BY pinned DESC, article_id DESC
+				LIMIT ' . $this->registry->setting('settings_rows_per_page'));
+				$num = $this->registry->library('db')->numRowsFromCache($cache);
+				if ($num != 0)
 				{
-					foreach ($data as $k => $v)
+					$articles = array();
+					$i = 0;
+					$data = $this->registry->library('db')->rowsFromCache($cache);
+					while ($i < $num)
 					{
-						$articles[$i]['article_id'] = $v['article_id'];
-						$articles[$i]['author_id'] = $v['author_id'];
-						$articles[$i]['title'] = $v['title'];
-						$articles[$i]['url_title'] = $v['url_title'];
-						$articles[$i]['article'] = $v['article'];
-						$articles[$i]['article_extended'] = $v['article_extended'];
-						$articles[$i]['create_date'] = $this->registry->library('helper')->convertDate($v['art_created']);
-						$articles[$i]['create_time'] = $this->registry->library('helper')->convertTime($v['art_created']);
-						if ($v['url_title'] == '')
+						foreach ($data as $k => $v)
 						{
-							$articles[$i]['more'] = $v['article_id'];
-						}
-						else
-						{
-							$articles[$i]['more'] = $v['url_title'];
-						}
-						$articles[$i]['author_name'] = $v['username'];
-						$articles[$i]['category_id'] = $v['categories'];
-						$articles[$i]['category_name'] = $v['category_name'];
-						$articles[$i]['comments_count'] = $v['comments_count'];
+							$articles[$i]['article_id'] = $v['article_id'];
+							$articles[$i]['author_id'] = $v['author_id'];
+							$articles[$i]['title'] = $v['title'];
+							$articles[$i]['url_title'] = $v['url_title'];
+							$articles[$i]['article'] = $v['article'];
+							$articles[$i]['article_extended'] = $v['article_extended'];
+							$articles[$i]['create_date'] = $this->registry->library('helper')->convertDate($v['art_created']);
+							$articles[$i]['create_time'] = $this->registry->library('helper')->convertTime($v['art_created']);
+							if ($v['url_title'] == '')
+							{
+								$articles[$i]['more'] = $v['article_id'];
+							}
+							else
+							{
+								$articles[$i]['more'] = $v['url_title'];
+							}
+							$articles[$i]['author_name'] = $v['username'];
+							$articles[$i]['category_id'] = $v['categories'];
+							$articles[$i]['category_name'] = $v['category_name'];
+							$articles[$i]['category_image_name'] = $v['category_image_name'];
+							$articles[$i]['comments_count'] = $v['comments_count'];
 // tree of categories?
-						if ($this->registry->setting('settings_one_cat') == 0)
-						{
-							$articles[$i]['one_cat_available'] = 'n';
+							if ($this->registry->setting('settings_one_cat') == 0)
+							{
+								$articles[$i]['one_cat_available'] = 'n';
+							}
+							else
+							{
+								$articles[$i]['one_cat_available'] = 'y';
+							}
+							$i = $i + 1;
 						}
-						else
-						{
-							$articles[$i]['one_cat_available'] = 'y';
-						}
-						$i = $i + 1;
 					}
 				}
-			}
-			$cache = $this->registry->library('db')->cacheData($articles);
-			$this->registry->library('template')->page()->addTag('articles', array('DATA', $cache));
+				$cache = $this->registry->library('db')->cacheData($articles);
+				$this->registry->library('template')->page()->addTag('articles', array('DATA', $cache));
 // $table, $rows_per_page, $pag_seg_number, $urlstring, $condition
-			$condition = 'WHERE article_visible = 2
-			' . $search_condition;
-			$pagination = $this->registry->library('paginate')->createLinksSys('articles', $this->registry->setting('settings_rows_per_page'), 3, $this->registry->setting('settings_site0') . '/search_page', $condition);
-			$this->registry->library('template')->page()->addTag('pagination', $pagination);
-			$this->registry->library('template')->page()->addTag('current_category', '');
+				$condition = 'WHERE article_visible = 2
+				' . $search_condition;
+				$pagination = $this->registry->library('paginate')->createLinksSys('articles', $this->registry->setting('settings_rows_per_page'), 3, $this->registry->setting('settings_site0') . '/search_page', $condition);
+				$this->registry->library('template')->page()->addTag('pagination', $pagination);
+				$this->registry->library('template')->page()->addTag('current_category', '');
 // HTML list of all categories
-			$categories_available = '';
-			$html = '';
-			$sql = 'SELECT *
-			FROM ' . $this->prefix . 'categories
-			WHERE categories_sys = "' . $this->sys_cms . '"
-			ORDER BY category_order ASC';
-			$cache = $this->registry->library('db')->cacheQuery($sql);
-			if ($this->registry->library('db')->numRowsFromCache($cache) != 0)
-			{
-				$categories_available = 'y';
-				$data = $this->registry->library('db')->rowsFromCache($cache);
-				$html = $this->registry->library('helper')->simpleCatList($data);
+				$categories_available = '';
+				$html = '';
+				$sql = 'SELECT *
+				FROM ' . $this->prefix . 'categories
+				WHERE categories_sys = "' . $this->sys_cms . '"
+				ORDER BY category_order ASC';
+				$cache = $this->registry->library('db')->cacheQuery($sql);
+				if ($this->registry->library('db')->numRowsFromCache($cache) != 0)
+				{
+					$categories_available = 'y';
+					$data = $this->registry->library('db')->rowsFromCache($cache);
+					$html = $this->registry->library('helper')->simpleCatList($data);
+				}
+				$this->registry->library('template')->page()->addTag('simple_categories_list', $html);
+				$this->registry->library('template')->page()->addTag('categories_available', $categories_available);
+				$this->registry->library('template')->build('header.tpl', 'search.tpl', 'footer.tpl');
 			}
-			$this->registry->library('template')->page()->addTag('simple_categories_list', $html);
-			$this->registry->library('template')->page()->addTag('categories_available', $categories_available);
-			$this->registry->library('template')->build('header.tpl', 'search.tpl', 'footer.tpl');
 		}
 		else
 		{
@@ -1395,6 +1461,22 @@ SyntaxHighlighter.all()
 
 	private function search_page()
 	{
+// for Search redirect if absent or too short
+		$urlSegments = $this->registry->getURLSegments();
+		$_SESSION['redirect'] = '';
+		if ($this->registry->library('db')->sanitizeData($urlSegments[0]) != '')
+		{
+			$_SESSION['redirect'] .= $this->registry->library('db')->sanitizeData($urlSegments[0]);
+		}
+		if ($this->registry->library('db')->sanitizeData($urlSegments[1]) != '')
+		{
+			$_SESSION['redirect'] .= '/' . $this->registry->library('db')->sanitizeData($urlSegments[1]);
+		}
+		if ($this->registry->library('db')->sanitizeData($urlSegments[2]) != '')
+		{
+			$_SESSION['redirect'] .= '/' . $this->registry->library('db')->sanitizeData($urlSegments[2]);
+		}
+
 		if ($this->registry->library('authenticate')->isLoggedIn() == true || $this->registry->setting('settings_guests_allowed') == 1)
 		{
 			$search = trim($this->registry->library('db')->sanitizeData($_SESSION['search']));
@@ -1453,6 +1535,7 @@ SyntaxHighlighter.all()
 						$articles[$i]['author_name'] = $v['username'];
 						$articles[$i]['category_id'] = $v['category_id'];
 						$articles[$i]['category_name'] = $v['category_name'];
+						$articles[$i]['category_image_name'] = $v['category_image_name'];
 						$articles[$i]['comments_count'] = $v['comments_count'];
 						if ($v['url_title'] == '')
 						{
@@ -1543,6 +1626,7 @@ SyntaxHighlighter.all()
 						$articles[$i]['author_name'] = $v['username'];
 						$articles[$i]['category_id'] = $v['category_id'];
 						$articles[$i]['category_name'] = $v['category_name'];
+						$articles[$i]['category_image_name'] = $v['category_image_name'];
 						$articles[$i]['comments_count'] = $v['comments_count'];
 						$i = $i + 1;
 					}
@@ -1626,6 +1710,7 @@ SyntaxHighlighter.all()
 						$articles[$i]['author_name'] = $v['username'];
 						$articles[$i]['category_id'] = $v['categories'];
 						$articles[$i]['category_name'] = $v['category_name'];
+						$articles[$i]['category_image_name'] = $v['category_image_name'];
 						$articles[$i]['comments_count'] = $v['comments_count'];
 // tree of categories?
 						if ($this->registry->setting('settings_one_cat') == 0)

@@ -181,8 +181,8 @@ tinyMCE.init({
 			}
 			if (true)
 			{
-				$this->registry->library('template')->page()->addTag('bbcodeeditor', "<link rel=\"stylesheet\" href=\"" . FWURL . "js/minified/themes/default.min.css\" type=\"text/css\" media=\"all\" />
-<script src=\"" . FWURL . "js/minified/jquery.sceditor.bbcode.min.js\"></script>
+				$this->registry->library('template')->page()->addTag('bbcodeeditor', "<link rel=\"stylesheet\" href=\"" . FWURL . "js/sceditor/minified/themes/default.min.css\" type=\"text/css\" media=\"all\" />
+<script src=\"" . FWURL . "js/sceditor/minified/jquery.sceditor.bbcode.min.js\"></script>
 <script>
 	var loadCSS = function(url, callback){
 		var link = document.createElement('link');
@@ -203,11 +203,11 @@ tinyMCE.init({
 				plugins: 'bbcode',
 				toolbar: \"bold,italic,underline,strike|quote,link,unlink,image,emoticon|maximize,source\",
 				emoticonsRoot: \"" . FWURL . "js/\",
-				style: \"" . FWURL . "js/minified/jquery.sceditor.default.min.css\"
+				style: \"" . FWURL . "js/sceditor/minified/jquery.sceditor.default.min.css\"
 			});
 		};
 		$(\"#theme\").change(function() {
-			var theme = \"" . FWURL . "js/minified/themes/default.min.css\";
+			var theme = \"" . FWURL . "js/sceditor/minified/themes/default.min.css\";
 			$(\"textarea\").sceditor(\"instance\").destroy();
 			$(\"link:first\").remove();
 			$(\"#theme-style\").remove();

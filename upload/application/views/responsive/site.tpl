@@ -25,15 +25,15 @@
 
 <header class="post-header">
 
-<h3><a href="{site_url}{CMS0}/more/{more}">{title}</a></h3>
+<h3>{if '{category_image_name}' != ''}<i class="fa fa-{category_image_name} category-icon-color"></i> {/if}<a href="{site_url}{CMS0}/more/{more}">{title}</a></h3>
 <p class="post-meta">
 {if '{one_cat_available}'=='y'}
 	<span class="post-meta-cats">
-		<a href="{site_url}user/id/{author_id}"><i class="fa fa-tag"></i>{category_name}</a>
+		<a href="{site_url}{CMS0}/category/{category_id}"><i class="fa fa-tag"></i>{category_name}</a>
 	</span>
 {/if}
 	<span class="post-meta-author">
-		<a href="user/id/1"><i class="fa fa-user"></i>{author_name}</a>
+		<a href="{site_url}user/id/{author_id}"><i class="fa fa-user"></i>{author_name}</a>
 	</span>
 	<span class="post-meta-time">
 		<i class="fa fa-clock-o"></i>{create_date} {create_time}
@@ -76,11 +76,26 @@
 
 <aside id="sidebar" class="sidebar">
 
-<h3 class="side-title">Info</h3>
+					<h3>{categories_text}</h3>
+					{if '{categories_available}'=='y'}
+					{simple_categories_list}
+					{else}
+					<p>{no_categories_yet}</p>
+					{/if}
 
-<p>SparkFrame integrates its own PHP framework, content management system (multilevel dynamic and static pages, w/ automatic multilevel categories/menu, blocks, and a few types of custom fields), HTML and WYSIWYG, forum and online shop (w/ IPN PayPal). It supports modules, extensions and widgets (including hooks), has multiple site support, advanced membership support, language localization support, template engine (including {if}{else}{/if} ), GNU GPL v.3, and White Label.</p>
+					<h3>{search}</h3>
+					<form action="{site_url}{CMS0}/search" method="post" id="searchForm">
+						<input class="text" name="search" type="text" value="" maxlength="150" />
+					</form>
 
+					{latest_articles_plus_widget}
+
+					{blogCalendar}
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+					{monthly_archive_widget}
+<br />
 {tagcloud_widget}
+<br /><br /><br /><br /><br /><br /><br /><br />
 
 </aside>
 

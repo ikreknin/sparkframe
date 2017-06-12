@@ -24,9 +24,9 @@
 		<link rel="stylesheet" href="{VIEWDIR}css/normalize.css">
 		<!-- Skeleton -->
 		<link rel="stylesheet" href="{VIEWDIR}css/skeleton.css" media="screen" />
-		<!-- Base Template Styles-->
+		<!-- Base Template Styles -->
 		<link rel="stylesheet" href="{VIEWDIR}css/base.css" media="screen" />
-		<!-- Custom Template Styles-->
+		<!-- Custom Template Styles -->
 		<link rel="stylesheet" href="{VIEWDIR}css/style.css" media="screen" />
 		<!-- FontAwesome -->
 		<link rel="stylesheet" href="{VIEWDIR}css/font-awesome.min.css" media="screen" />
@@ -36,8 +36,10 @@
 		<link rel="stylesheet" href="{VIEWDIR}css/prettyPhoto.css" media="screen" />
 		<!-- FlexSlider -->
 		<link rel="stylesheet" href="{VIEWDIR}css/flexslider.css" media="screen" />
-		<!-- Media Queries-->
+		<!-- Media Queries -->
 		<link rel="stylesheet" href="{VIEWDIR}css/media-queries.css" media="screen" />
+		<!-- SCEditor -->
+		<link rel="stylesheet" href="{site_url}js/sceditor/minified/themes/default.min.css" type="text/css" media="all" />
 
 		<link rel="stylesheet" type="text/css" href="{VIEWDIR}css/calendar.css" />
 
@@ -77,6 +79,25 @@
 		<script src="{VIEWDIR}js/jquery.elastislide.js"></script>
 		<!-- FlexSlider -->
 		<script src="{VIEWDIR}js/jquery.flexslider-min.js"></script>
+		<!-- SCEditor -->
+		<script type="text/javascript" src="{site_url}js/sceditor/minified/jquery.sceditor.bbcode.min.js"></script>
+
+		<script>
+			$(function() {
+				$("textarea").sceditor({
+					plugins: "bbcode",
+					width: "500",
+					emoticonsRoot: "{site_url}js/sceditor/",
+{if '{seg_1}' == 'contact' || '{seg_1}' == 'send_email'}
+					toolbar: "maximize",
+					style: "minified/jquery.sceditor.default.min.css"
+{else}
+					toolbar: "bold,italic,underline,strike|quote,link,unlink,image,youtube,emoticon|maximize,source",
+{/if}
+
+				});
+			});
+		</script>
 
 		<script type="text/javascript" src="{site_url}js/swfobject/swfobject.js"></script>
 

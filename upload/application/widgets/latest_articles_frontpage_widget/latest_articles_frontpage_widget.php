@@ -97,11 +97,11 @@ $result .= '	<article class="post clearfix">
 			<h3><a href="' . $v["site_url"] . $v["CMS0"] . 'site/more/' . $more . '">' . $v["title"] . '</a></h3>
 			<p class="post-meta">'
 . (($one_cat_available != 0) ? 
-				'<span class="post-meta-cats"><i class="icon-tag"></i><a href="' . $v["site_url"] . $settings_site0 . '/category/' . $v["category_id"] . '">' . $v["category_name"] . '</a></span>'
+				'<span class="post-meta-cats"><i class="fa fa-tag"></i><a href="' . $v["site_url"] . $settings_site0 . '/category/' . $v["category_id"] . '">' . $v["category_name"] . '</a></span>'
 : '') . 
-				'<span class="post-meta-author"><a href="' . $v["site_url"] . 'user/id/' . $v["author_id"] . '"><i class="icon-user"></i>' . $v["username"] . '</a></span>
-				<span class="post-meta-time"><i class="icon-time"></i>' . $create_date . ' ' . $create_time . '</span>
-				<span class="post-meta-comments"><i class="icon-comment"></i>' . $v["comments_count"] . '</span>
+				'<span class="post-meta-author"><a href="' . $v["site_url"] . 'user/id/' . $v["author_id"] . '"><i class="fa fa-user"></i>' . $v["username"] . '</a></span>
+				<span class="post-meta-time"><i class="fa fa-time"></i>' . $create_date . ' ' . $create_time . '</span>
+				<span class="post-meta-comments"><i class="fa fa-comment"></i>' . $v["comments_count"] . '</span>
 			</p>
 		</header>
 		<div class="post-excerpt">
@@ -110,7 +110,7 @@ $result .= '	<article class="post clearfix">
 
 // TAGS START
 				$show_tags = 1; // TO SHOW TAGS
-				$show_tags = 0; // NOT TO SHOW TAGS
+//				$show_tags = 0; // NOT TO SHOW TAGS
 				if($show_tags != 0)
 				{
 					$art_tags_html = '';

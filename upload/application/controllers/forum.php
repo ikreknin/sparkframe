@@ -288,8 +288,8 @@ SyntaxHighlighter.all()
 			}
 			if ($this->seg_1 == 'newtopic' || $this->seg_1 == 'newpost' || $this->seg_1 == 'creating_topic' || $this->seg_1 == 'creating_post')
 			{
-				$this->registry->library('template')->page()->addTag('bbcodeeditor', "<link rel=\"stylesheet\" href=\"" . FWURL . "js/minified/themes/default.min.css\" type=\"text/css\" media=\"all\" />
-<script src=\"" . FWURL . "js/minified/jquery.sceditor.bbcode.min.js\"></script>
+				$this->registry->library('template')->page()->addTag('bbcodeeditor', "<link rel=\"stylesheet\" href=\"" . FWURL . "js/sceditor/minified/themes/default.min.css\" type=\"text/css\" media=\"all\" />
+<script src=\"" . FWURL . "js/sceditor/minified/jquery.sceditor.bbcode.min.js\"></script>
 <script>
 	var loadCSS = function(url, callback){
 		var link = document.createElement('link');
@@ -310,11 +310,11 @@ SyntaxHighlighter.all()
 				plugins: 'bbcode',
 				toolbar: \"bold,italic,underline,strike|quote,link,unlink,image,emoticon|maximize,source\",
 				emoticonsRoot: \"" . FWURL . "js/\",
-				style: \"" . FWURL . "js/minified/jquery.sceditor.default.min.css\"
+				style: \"" . FWURL . "js/sceditor/minified/jquery.sceditor.default.min.css\"
 			});
 		};
 		$(\"#theme\").change(function() {
-			var theme = \"" . FWURL . "js/minified/themes/default.min.css\";
+			var theme = \"" . FWURL . "js/sceditor/minified/themes/default.min.css\";
 			$(\"textarea\").sceditor(\"instance\").destroy();
 			$(\"link:first\").remove();
 			$(\"#theme-style\").remove();
@@ -999,8 +999,9 @@ ORDER BY f_order ASC';
 				$data['t_forum_id'] = $this->registry->library('db')->sanitizeData($_POST['forumID']);
 				$data['t_user_id'] = $this->registry->library('authenticate')->getUserID();
 				$data['t_last_post_user_id'] = $this->registry->library('authenticate')->getUserID();
-				$data['t_title'] = $this->registry->library('db')->sanitizeData($_POST['topic_title']);
-				$data['t_body'] = $this->registry->library('db')->sanitizeData($_POST['body']);
+// XSS
+				$data['t_title'] = $this->registry->library('db')->sanitizeDataX($_POST['topic_title']);
+				$data['t_body'] = $this->registry->library('db')->sanitizeDataX($_POST['body']);
 				$data['t_topic_date'] = date("Y-m-d H:i:s", time());
 				$data['t_last_post_date'] = date("Y-m-d H:i:s", time());
 				$data['t_ip_address'] = getenv('REMOTE_ADDR');
@@ -1068,7 +1069,8 @@ ORDER BY f_order ASC';
 				$topic_id = $this->registry->library('db')->sanitizeData($_POST['topicID']);
 				$data['p_topic_id'] = $topic_id;
 				$data['p_user_id'] = $this->registry->library('authenticate')->getUserID();
-				$data['p_body'] = $this->registry->library('db')->sanitizeData($_POST['body']);
+// XSS
+				$data['p_body'] = $this->registry->library('db')->sanitizeDataX($_POST['body']);
 				$data['p_post_date'] = date("Y-m-d H:i:s", time());
 				$sql = 'SELECT *
 				FROM ' . $this->prefix . 'forum_topics

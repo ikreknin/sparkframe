@@ -182,6 +182,7 @@ if (count($updateFilesToUse) !=0)
 	if($updateFilesToUse[0] == 'u303.php') { $controller = new u303($registry, true); }
 	if($updateFilesToUse[0] == 'u304.php') { $controller = new u304($registry, true); }
 	if($updateFilesToUse[0] == 'u305.php') { $controller = new u305($registry, true); }
+	if($updateFilesToUse[0] == 'u306.php') { $controller = new u306($registry, true); }
 }
 else
 {

@@ -82,9 +82,68 @@ class Admin_tags_input_create_extension
 
 	public function index()
 	{
-		$result = $this->registry->library('lang')->line('tags') . ':<br />
-<input id="tags" style="width: 500px" type=\'text\' name=\'tags\' value=\'\' />
-<br /><br />';
+		$prefix = $this->registry->library('db')->getPrefix();
+		$sys_cms = $this->registry->library('db')->getSys();
+		$settings_site0 = $this->registry->setting('settings_site0');
+		$tags_text = $this->registry->library('lang')->line('tags');
+
+		$result = $tags_text . ':<br />
+<input id="tag_list" style="width: 500px" type=\'text\' name=\'tags\' value=\'\' />
+<br />';
+
+		$sql = 'SELECT *
+			FROM ' . $prefix . 'tags
+			WHERE tags_sys = "' . $sys_cms . '"';
+
+		$cache = $this->registry->library('db')->cacheQuery($sql);
+		$num = $this->registry->library('db')->numRowsFromCache($cache);
+
+		$result .= '<div>';
+
+		if ($num != 0)
+		{
+			$data = $this->registry->library('db')->rowsFromCache($cache);
+			foreach ($data as $k => $v)
+			{
+				$tag_name = $v['tag_name'];
+				$tag_name_safe = urlencode($tag_name);
+				$result .= '<button id="' . $tag_name . '"> ' . $tag_name . ' </button> ';
+			}
+		}
+		$result .= '</div><br />';
+
+		if ($num != 0)
+		{
+			$result .= '<script>';
+
+			foreach ($data as $k => $v)
+			{
+				$tag_name = $v['tag_name'];
+
+$result .= '$(document).ready(function(){
+  $(document.getElementById("' . $tag_name . '")).click(function(e){
+    $("#tag_list").val(function(i,origText){
+	e.preventDefault();
+    $var = "|" + "' . $tag_name . '";
+    $var = origText + $var;
+    if ($var.charAt(0) == "|")
+    {
+    	$var = $var.substring(1);
+    }
+	while ($var.indexOf("||") > -1)
+  	{
+  		$var = $var.replace("||","|");
+  	}
+    return $var; 
+    });
+  });
+});';
+
+			}
+
+			$result .= '</script>';
+		}
+
 		return $result;
 	}
 

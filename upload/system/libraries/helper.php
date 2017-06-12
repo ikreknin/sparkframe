@@ -1191,11 +1191,11 @@ class Helper
 		$month_name = Registry :: library('lang')->line($month_name);
 		$blogCalendar .= '<div id="cal">
 		<div class="header">
-			<span class="left button" id="prev"><a href="' . FWURL . Registry :: setting("settings_site0") . '/calendar/' . $prevYear . '/' . $prevMonth . '"> &lang; </a></span>
+			<span class="left button-calendar" id="prev"><a href="' . FWURL . Registry :: setting("settings_site0") . '/calendar/' . $prevYear . '/' . $prevMonth . '"> &lang; </a></span>
 			<span class="left hook"></span>
 			<span class="month-year" id="label">' . $month_name . ' ' . $currentYear . '</span>
 			<span class="right hook"></span>
-			<span class="right button" id="next"><a href="' . FWURL . Registry :: setting("settings_site0") . '/calendar/' . $nextYear . '/' . $nextMonth . '"> &rang; </a></span>
+			<span class="right button-calendar" id="next"><a href="' . FWURL . Registry :: setting("settings_site0") . '/calendar/' . $nextYear . '/' . $nextMonth . '"> &rang; </a></span>
 		</div>
 		<table id="days">
 			<tr>';
@@ -1508,11 +1508,11 @@ class Helper
 		$month_name = Registry :: library('lang')->line($month_name);
 		$blogCalendar .= '<div id="cal">
 		<div class="header">
-			<span class="left button" id="prev"><a href="' . FWURL . Registry :: setting("settings_site0") . '/calendar/' . $prevYear . '/' . $prevMonth . '"> &lang; </a></span>
+			<span class="left button-calendar" id="prev"><a href="' . FWURL . Registry :: setting("settings_site0") . '/calendar/' . $prevYear . '/' . $prevMonth . '"> &lang; </a></span>
 			<span class="left hook"></span>
 			<span class="month-year" id="label">' . $month_name . ' ' . $currentYear . '</span>
 			<span class="right hook"></span>
-			<span class="right button" id="next"><a href="' . FWURL . Registry :: setting("settings_site0") . '/calendar/' . $nextYear . '/' . $nextMonth . '"> &rang; </a></span>
+			<span class="right button-calendar" id="next"><a href="' . FWURL . Registry :: setting("settings_site0") . '/calendar/' . $nextYear . '/' . $nextMonth . '"> &rang; </a></span>
 		</div>
 		<table id="days">
 			<tr>';

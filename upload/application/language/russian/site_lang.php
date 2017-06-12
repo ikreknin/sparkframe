@@ -417,4 +417,8 @@ $this->lang['encrypted_field'] = 'Закодировано';
 $this->lang['tag'] = 'Тег';
 $this->lang['tags'] = 'Теги';
 $this->lang['url_title_used'] = 'Такой URL-заголовок уже используется; каждая статья должна иметь свой уникальный URL.';
+$this->lang['search_absent'] = 'Не было задано слово для поиска';
+$this->lang['search_absent_message'] = 'Введите слово для поиска';
+$this->lang['search_short'] = 'Слово для поискм слишком короткое';
+$this->lang['search_short_message'] = 'Длина слова должна быть больше 3 символов';
 ?>

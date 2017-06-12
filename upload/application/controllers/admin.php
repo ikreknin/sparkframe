@@ -222,6 +222,7 @@ class Admincontroller
 			$this->registry->library('template')->page()->addTag('static_page_main', $this->registry->library('lang')->line('static_page_main'));
 			$this->registry->library('template')->page()->addTag('static_page_footer', $this->registry->library('lang')->line('static_page_footer'));
 			$this->registry->library('template')->page()->addTag('web_url_text', $this->registry->library('lang')->line('web_url_text'));
+			$this->registry->library('template')->page()->addTag('search', $this->registry->library('lang')->line('search'));
 			if ($this->registry->library('authenticate')->isAdmin() == true || $this->registry->library('authenticate')->hasPermission('access_admin') == true)
 			{
 				$this->registry->library('template')->page()->addTag('admin_level', '1');
@@ -386,8 +387,8 @@ else
 			}
 			if ($this->seg_1 == 'edit_comment')
 			{
-				$this->registry->library('template')->page()->addTag('bbcodeeditor', "<link rel=\"stylesheet\" href=\"" . FWURL . "js/minified/themes/default.min.css\" type=\"text/css\" media=\"all\" />
-<script src=\"" . FWURL . "js/minified/jquery.sceditor.bbcode.min.js\"></script>
+				$this->registry->library('template')->page()->addTag('bbcodeeditor', "<link rel=\"stylesheet\" href=\"" . FWURL . "js/sceditor/minified/themes/default.min.css\" type=\"text/css\" media=\"all\" />
+<script src=\"" . FWURL . "js/sceditor/minified/jquery.sceditor.bbcode.min.js\"></script>
 <script>
 	var loadCSS = function(url, callback){
 		var link = document.createElement('link');
@@ -408,11 +409,11 @@ else
 				plugins: 'bbcode',
 				toolbar: \"bold,italic,underline,strike|quote,link,unlink,image,emoticon|maximize,source\",
 				emoticonsRoot: \"" . FWURL . "js/\",
-				style: \"" . FWURL . "js/minified/jquery.sceditor.default.min.css\"
+				style: \"" . FWURL . "js/sceditor/minified/jquery.sceditor.default.min.css\"
 			});
 		};
 		$(\"#theme\").change(function() {
-			var theme = \"" . FWURL . "js/minified/themes/default.min.css\";
+			var theme = \"" . FWURL . "js/sceditor/minified/themes/default.min.css\";
 			$(\"textarea\").sceditor(\"instance\").destroy();
 			$(\"link:first\").remove();
 			$(\"#theme-style\").remove();
@@ -2040,12 +2041,12 @@ else
 					$data['categories'] = $this->registry->library('db')->sanitizeData($_POST['catOne']);
 				}
 				$this->registry->library('db')->insertRecordsSys('articles', $data);
-// To add Categories
-				$lastInsertID = $this->registry->library('db')->lastInsertID();
 
 // php hook: creating_article_after_insertRecordsSys_articles_hook
 				$this->registry->library('hook')->call('creating_article_after_insertRecordsSys_articles_hook');
-// hook end
+
+// To add Categories
+				$lastInsertID = $this->registry->library('db')->lastInsertID();
 				$data = array();
 				if ($this->registry->setting('settings_one_cat') == 0)
 				{

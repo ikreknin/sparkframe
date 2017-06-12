@@ -85,6 +85,11 @@ class Admin_tags_creating_extension
 		$result = '';
 		$result = $this->registry->library('db')->sanitizeData($_POST['tags']);
 		$result = preg_replace('/\s+/', ' ', $result);
+// remove all ||
+		while (strpos($result,'||') !== false)
+		{
+			$art_tags = str_replace("||", "|", $result);
+		}
 		$res = explode("|", $result);
 		$length = count($res);
 		$arr = array();

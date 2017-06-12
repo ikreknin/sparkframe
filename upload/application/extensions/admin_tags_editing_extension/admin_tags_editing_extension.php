@@ -143,6 +143,11 @@ class Admin_tags_editing_extension
 		$result = '';
 		$result = $this->registry->library('db')->sanitizeData($_POST['tags']);
 		$result = preg_replace('/\s+/', ' ', $result);
+// remove all ||
+		while (strpos($result,'||') !== false)
+		{
+			$result = str_replace("||", "|", $result);
+		}
 		$res = explode("|", $result);
 		$length = count($res);
 		$arr = array();

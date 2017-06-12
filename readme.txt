@@ -139,3 +139,6 @@ Version history:
 3. 2 Tags Widgets added (to show tag list and tag cloud)
 - 3.0.5
 1. latest_articles_frontpage_widget can display tags.
+- 3.0.6
+1. Added Simple theme (Admin Control Panel)
+2. sanitizeDataX($data) function added (database.php) to prevent XSS attacks
