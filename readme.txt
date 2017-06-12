@@ -124,3 +124,8 @@ AND
 
 
 NOTE: Switch on the Poll module to see the blog page (or delete {poll_widget} in application/views/default/site.tpl).
+
+Version history:
+- 3.0.1
+1. rutube.ru support added
+
