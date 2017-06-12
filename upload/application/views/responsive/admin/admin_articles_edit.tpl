@@ -135,6 +135,8 @@
 
 <br /><br />
 
+{admin_articles_edit_before_submit_hook}
+
 <p><input type='submit' value='{submit}'/></p>
 
 </form>

@@ -48,6 +48,8 @@
 {article}
 {article_extended}
 
+{article_tags_widget}
+
 <div class="edit_this">
 {if '{admin_level}'=='1'}<p><a href="{site_url}admin/edit_article/{article_id}">[{edit_this}]</a></p>{/if}
 </div>

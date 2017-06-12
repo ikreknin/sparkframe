@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="{VIEWDIR}css-emotion/base.css" media="screen" />
 	<link rel="stylesheet" href="{VIEWDIR}css-emotion/style.css" media="screen" />
 </head>
-<body>
+<body style="background: #f1f3ee">
 
 				<!-- BEGIN CONTENT WRAPPER -->
 				<div id="content-wrapper" class="content-wrapper">

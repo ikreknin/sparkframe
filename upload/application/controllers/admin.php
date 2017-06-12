@@ -11,6 +11,7 @@ class Admincontroller
 	private $seg_3;
 	private $articles_per_page_in_admin = 20;
 	private $users_per_page = 20;
+
 // true if CKFinder installed
 	public $ckfinderOn = true;
 
@@ -47,6 +48,13 @@ class Admincontroller
 			$this->registry->library('template')->page()->addTag('admin_before_closing_head_tag_hook', '');
 			$admin_before_closing_head_tag_hook = $this->registry->library('hook')->call('admin_before_closing_head_tag_hook');
 			$this->registry->library('template')->page()->addTag('admin_before_closing_head_tag_hook', $admin_before_closing_head_tag_hook);
+			$this->registry->library('template')->page()->addTag('admin_articles_create_before_submit_hook', '');
+			$admin_articles_create_before_submit_hook = $this->registry->library('hook')->call('admin_articles_create_before_submit_hook');
+			$this->registry->library('template')->page()->addTag('admin_articles_create_before_submit_hook', $admin_articles_create_before_submit_hook);
+			$this->registry->library('template')->page()->addTag('admin_articles_edit_before_submit_hook', '');
+			$admin_articles_edit_before_submit_hook = $this->registry->library('hook')->call('admin_articles_edit_before_submit_hook');
+			$this->registry->library('template')->page()->addTag('admin_articles_edit_before_submit_hook', $admin_articles_edit_before_submit_hook);
+			
 			$this->registry->library('template')->page()->addTag('charset', $this->registry->setting('settings_charset'));
 			$this->registry->library('template')->page()->addTag('metakeywords', $this->registry->setting('settings_metakeywords'));
 			$this->registry->library('template')->page()->addTag('metadescription', $this->registry->setting('settings_metadescription'));
@@ -273,6 +281,7 @@ class Admincontroller
 				$this->registry->library('template')->page()->addTag('editor', '<script type="text/javascript" src="' . FWURL . 'js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript">
 tinyMCE.init({
+
 	remove_script_host : false,
 	convert_urls : false,
 
@@ -1783,8 +1792,84 @@ else
 // Caching OFF
 			$this->registry->library('db')->setCacheOn(0);
 			$this->registry->library('template')->page()->addTag('author_id', $this->registry->library('authenticate')->getUserID());
+/// URL check (USED before?)
+			$sql = 'SELECT *
+			FROM ' . $this->prefix . 'articles
+			WHERE articles_sys = "' . $this->sys_cms . '"
+			AND url_title = "' . $this->registry->library('db')->sanitizeData($_POST['url_title']) . '"';
+			$cache = $this->registry->library('db')->cacheQuery($sql);
+			if ($this->registry->library('db')->numRowsFromCache($cache) != 0 && $this->registry->library('db')->sanitizeData($_POST['url_title']) != '')
+			{
+				$this->registry->library('template')->page()->addTag('error_message', $this->registry->library('lang')->line('url_title_used'));
+				$this->registry->library('template')->page()->addTag('art_created', $this->registry->library('db')->sanitizeData($_POST['art_created']));
+				$this->registry->library('template')->page()->addTag('title', $this->registry->library('db')->sanitizeData($_POST['title']));
+				$this->registry->library('template')->page()->addTag('url_title', $this->registry->library('db')->sanitizeData($_POST['url_title']));
+				$this->registry->library('template')->page()->addTag('article', $this->registry->library('db')->sanitizeData($_POST['article']));
+				$this->registry->library('template')->page()->addTag('article_extended', $this->registry->library('db')->sanitizeData($_POST['article_extended']));
+				$this->registry->library('template')->page()->addTag('heading', $this->registry->library('lang')->line('new_article'));
+				$this->registry->library('template')->page()->addTag('article_visible', $this->registry->library('db')->sanitizeData($_POST['article_visible']));
+				$this->registry->library('template')->page()->addTag('pinned', $this->registry->library('db')->sanitizeData($_POST['pinned']));
+				$cache = $this->registry->library('db')->cacheQuery('SELECT *
+			FROM ' . $this->prefix . 'c_fields_created
+			WHERE c_fields_created_sys = "' . $this->sys_cms . '"
+			AND (c_created_type = 1 OR c_created_type = 2)
+			AND c_created_site_section = "b"');
+				$this->registry->library('template')->page()->addTag('custom_fields_12', array('SQL', $cache));
+				$stringField3 = '';
+				$sql = 'SELECT *
+			FROM ' . $this->prefix . 'c_fields_created
+			WHERE c_fields_created_sys = "' . $this->sys_cms . '"
+			AND c_created_type = 3
+			AND c_created_site_section = "b"';
+				$cache = $this->registry->library('db')->cacheQuery($sql);
+				if ($this->registry->library('db')->numRowsFromCache($cache) != 0)
+				{
+					$fields = array();
+					$skip = 0;
+					$num = $this->registry->library('db')->numRowsFromCache($cache);
+					$data = $this->registry->library('db')->rowsFromCache($cache);
+					foreach ($data as $k => $v)
+					{
+						if ($skip == 0)
+						{
+							$stringField3 .= $v['c_created_name'] . '<br /><select name="custom_field_' . $v['c_created_id'] . '">';
+							$skip = 1;
+						}
+						$array1 = explode("|", $v['c_type_default_value']);
+						foreach ($array1 as $key => $value)
+						{
+							$stringField3 .= '<option value="' . $value . '">' . $value . '</option>';
+						}
+					}
+					$stringField3 .= '</select>';
+				}
+				$this->registry->library('template')->page()->addTag('stringField3', $stringField3);
+				$categories_available = '';
+				$sql = 'SELECT *
+			FROM ' . $this->prefix . 'categories
+			WHERE categories_sys = "' . $this->sys_cms . '"
+			ORDER BY category_order ASC';
+				$cache = $this->registry->library('db')->cacheQuery($sql);
+				if ($this->registry->library('db')->numRowsFromCache($cache) != 0)
+				{
+					$categories_available = 'y';
+					$data = $this->registry->library('db')->rowsFromCache($cache);
+					if ($this->registry->setting('settings_one_cat') == 0)
+					{
+						$html = $this->registry->library('helper')->adminCatCheckBoxList($data);
+					}
+					else
+					{
+						$html = $this->registry->library('helper')->adminCatDropDownList($data);
+					}
+				}
+				$this->registry->library('template')->page()->addTag('adminCatCheckBoxList', $html);
+				$this->registry->library('template')->page()->addTag('categories_available', $categories_available);
+				$this->registry->library('template')->build('admin/admin_header.tpl', 'admin/admin_articles_create.tpl', 'admin/admin_footer.tpl');
+			}
+
 //			if($_POST['title'] == '' || $_POST['url_title'] == '' || $_POST['article'] == '')
-			if ($_POST['title'] == '' || $_POST['article'] == '')
+			elseif ($_POST['title'] == '' || $_POST['article'] == '')
 			{
 				$this->registry->library('template')->page()->addTag('error_message', $this->registry->library('lang')->line('insufficient_data'));
 				$this->registry->library('template')->page()->addTag('art_created', $this->registry->library('db')->sanitizeData($_POST['art_created']));
@@ -1926,6 +2011,22 @@ else
 			{
 // To add Article
 				$data = array();
+
+// php hook: creating_article_before_insertRecordsSys_articles_hook
+				$resulthook = '';
+				$resulthook = $this->registry->library('hook')->call('creating_article_before_insertRecordsSys_articles_hook');
+// reading RETURN as $data
+				if ($resulthook != '')
+				{
+					$pieces = explode("  ", $resulthook);
+					$length = count($pieces);
+					for ($i = 0; $i < $length / 2; $i++)
+					{
+  						$data[$pieces[$i * 2]] = $pieces[$i * 2 + 1];
+					}
+				}
+
+
 				$data['author_id'] = $this->registry->library('authenticate')->getUserID();
 				$data['art_created'] = $this->registry->library('db')->sanitizeData($_POST['art_created']);
 				$data['title'] = $this->registry->library('db')->sanitizeData($_POST['title']);
@@ -1941,6 +2042,10 @@ else
 				$this->registry->library('db')->insertRecordsSys('articles', $data);
 // To add Categories
 				$lastInsertID = $this->registry->library('db')->lastInsertID();
+
+// php hook: creating_article_after_insertRecordsSys_articles_hook
+				$this->registry->library('hook')->call('creating_article_after_insertRecordsSys_articles_hook');
+// hook end
 				$data = array();
 				if ($this->registry->setting('settings_one_cat') == 0)
 				{
@@ -2208,6 +2313,10 @@ $cache = $this->registry->library('db')->cacheData($result);
 	{
 		if ($this->registry->library('authenticate')->isAdmin() == true || $this->registry->library('authenticate')->hasPermission('access_admin') == true)
 		{
+// php hook: editing_article_beginning_hook
+			$resulthook = '';
+			$resulthook = $this->registry->library('hook')->call('editing_article_beginning_hook');
+
 // Caching OFF
 			$this->registry->library('db')->setCacheOn(0);
 			$articleID = $this->registry->library('db')->sanitizeData($_POST['articleID']);
@@ -2295,7 +2404,31 @@ AND ac_art_id = ' . $articleID;
 				$stringField3 .= '</select>';
 			}
 			$this->registry->library('template')->page()->addTag('stringField3', $stringField3);
-			if ($_POST['title'] == '' || $_POST['article'] == '' || $_POST['art_created'] == '')
+
+/// URL check (USED before?)
+			$sql = 'SELECT *
+			FROM ' . $this->prefix . 'articles
+			WHERE articles_sys = "' . $this->sys_cms . '"
+			AND 	article_id != ' . $this->registry->library('db')->sanitizeData($_POST['articleID']) . '
+			AND url_title = "' . $this->registry->library('db')->sanitizeData($_POST['url_title']) . '"';
+			$cache = $this->registry->library('db')->cacheQuery($sql);
+			if ($this->registry->library('db')->numRowsFromCache($cache) != 0 && $this->registry->library('db')->sanitizeData($_POST['url_title']) != '')
+			{
+				$this->registry->library('template')->page()->addTag('article_id', $this->registry->library('db')->sanitizeData($_POST['articleID']));
+				$this->registry->library('template')->page()->addTag('error_message', $this->registry->library('lang')->line('url_title_used'));
+				$this->registry->library('template')->page()->addTag('art_created', $this->registry->library('db')->sanitizeData($_POST['art_created']));
+				$this->registry->library('template')->page()->addTag('title', $this->registry->library('db')->sanitizeData($_POST['title']));
+				$this->registry->library('template')->page()->addTag('url_title', $this->registry->library('db')->sanitizeData($_POST['url_title']));
+				$this->registry->library('template')->page()->addTag('article', $this->registry->library('db')->sanitizeData($_POST['article']));
+				$this->registry->library('template')->page()->addTag('article_extended', $this->registry->library('db')->sanitizeData($_POST['article_extended']));
+				$this->registry->library('template')->page()->addTag('heading', $this->registry->library('lang')->line('new_article'));
+				$this->registry->library('template')->page()->addTag('article_visible', $this->registry->library('db')->sanitizeData($_POST['article_visible']));
+				$this->registry->library('template')->page()->addTag('pinned', $this->registry->library('db')->sanitizeData($_POST['pinned']));
+// Restore CacheOn NOT Delete Cache
+				$this->registry->library('db')->setCacheOn($this->registry->setting('settings_cached'));
+				$this->registry->library('template')->build('admin/admin_header.tpl', 'admin/admin_articles_edit.tpl', 'admin/admin_footer.tpl');
+			}
+			elseif ($_POST['title'] == '' || $_POST['article'] == '' || $_POST['art_created'] == '')
 			{
 				$this->registry->library('template')->page()->addTag('article_id', $this->registry->library('db')->sanitizeData($_POST['articleID']));
 				$this->registry->library('template')->page()->addTag('error_message', $this->registry->library('lang')->line('insufficient_data'));
@@ -2481,6 +2614,10 @@ AND ac_art_id = ' . $articleID;
 			WHERE c_fields_sys = \"" . $this->sys_cms . "\"
 			AND `c_art_id` = %u", $this->seg_2);
 			$cache = $this->registry->library('db')->cacheQuery($sql);
+
+// php hook: delete_article_after_hook
+			$this->registry->library('hook')->call('delete_article_after_hook');
+
 // Restore CacheOn & Delete Cache
 			$this->registry->library('db')->setCacheOn($this->registry->setting('settings_cached'));
 			if ($this->registry->setting('settings_cached') == 1)

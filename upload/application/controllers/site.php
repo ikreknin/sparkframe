@@ -339,6 +339,12 @@ SyntaxHighlighter.all()
 			$w = $this->registry->widget('accessible_mega_menu_widget')->index();
 			$this->registry->library('template')->addWidgetTag('accessible_mega_menu_widget', $w);
 //
+			$w = $this->registry->widget('article_tags_widget')->index();
+			$this->registry->library('template')->addWidgetTag('article_tags_widget', $w);
+//
+			$w = $this->registry->widget('tagcloud_widget')->index();
+			$this->registry->library('template')->addWidgetTag('tagcloud_widget', $w);
+//
 			$this->registry->library('template')->page()->addTag('seg_1', $urlSegments[0]);
 			$this->registry->library('template')->page()->addTag('seg_2', $urlSegments[1]);
 			$this->registry->library('template')->page()->addTag('seg_3', $urlSegments[2]);

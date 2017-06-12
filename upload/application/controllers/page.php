@@ -198,6 +198,9 @@ class Pagecontroller
 			$w = $this->registry->widget('jssorslider_widget')->index();
 			$this->registry->library('template')->addWidgetTag('jssorslider_widget', $w);
 //
+			$w = $this->registry->widget('tagcloud_widget')->index();
+			$this->registry->library('template')->addWidgetTag('tagcloud_widget', $w);
+//
 			$this->registry->library('template')->page()->addTag('seg_1', $urlSegments[0]);
 			$this->registry->library('template')->page()->addTag('seg_2', $urlSegments[1]);
 			$this->registry->library('template')->page()->addTag('seg_3', $urlSegments[2]);

@@ -80,6 +80,8 @@
 
 <p>SparkFrame integrates its own PHP framework, content management system (multilevel dynamic and static pages, w/ automatic multilevel categories/menu, blocks, and a few types of custom fields), HTML and WYSIWYG, forum and online shop (w/ IPN PayPal). It supports modules, extensions and widgets (including hooks), has multiple site support, advanced membership support, language localization support, template engine (including {if}{else}{/if} ), GNU GPL v.3, and White Label.</p>
 
+{tagcloud_widget}
+
 </aside>
 
 <!-- END SIDEBAR -->

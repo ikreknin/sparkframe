@@ -132,3 +132,8 @@ Version history:
 1. Widget support added in user profiles
 - 3.0.3
 1. Jssor Slider added (www.jssor.com)
+- 3.0.4
+1. 1 Tags Module added (creates tables in MySQL) ('art_tags' field is dropped in 'articles' table;
+   now 'art_tags' is created by Tags Module)
+2. 6 Tags Extensions added (to create/edit/delete articles).
+3. 2 Tags Widgets added (to show tag list and tag cloud)

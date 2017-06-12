@@ -414,4 +414,7 @@ $this->lang['question'] = 'Вопрос';
 $this->lang['remember_me'] = 'Запомнить меня';
 $this->lang['cur_lang_code'] = 'ru';
 $this->lang['encrypted_field'] = 'Закодировано';
+$this->lang['tag'] = 'Тег';
+$this->lang['tags'] = 'Теги';
+$this->lang['url_title_used'] = 'Такой URL-заголовок уже используется; каждая статья должна иметь свой уникальный URL.';
 ?>

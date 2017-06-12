@@ -180,6 +180,7 @@ if (count($updateFilesToUse) !=0)
 	if($updateFilesToUse[0] == 'u301.php') { $controller = new u301($registry, true); }
 	if($updateFilesToUse[0] == 'u302.php') { $controller = new u302($registry, true); }
 	if($updateFilesToUse[0] == 'u303.php') { $controller = new u303($registry, true); }
+	if($updateFilesToUse[0] == 'u304.php') { $controller = new u304($registry, true); }
 }
 else
 {
