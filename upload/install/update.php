@@ -1,18 +1,18 @@
 <?php
 /**
- * SparkFrame CMS - by Igor Kreknin
- *
- * @package		SparkFrame CMS
- * @author		Igor Kreknin
- * @copyright	Copyright (c) 2010, Igor Kreknin
- * @license		GNU GPL v3
- * @link		http://sparkframe.com
- * @since		Version 2.0
+* SparkFrame CMS - by Igors Kreknins
+*
+* @package		SparkFrame CMS
+* @author		Igors Kreknins
+* @copyright	Copyright (c) 2010, Igors Kreknins
+* @license		GNU GPL v3
+* @link			http://sparkframe.id.lv
+* @since		Version 3
  */
 
 session_start();
 
-define('FWURL', 'http://sparkframe.id.lv/');
+define('FWURL', 'http://localhost/sparkframe/');
 define('SUBDIR', '');
 define('APPDIR', SUBDIR . 'application');
 define('SYSDIR', SUBDIR . 'system');
@@ -187,6 +187,7 @@ if (count($updateFilesToUse) !=0)
 	if($updateFilesToUse[0] == 'u308.php') { $controller = new u308($registry, true); }
 	if($updateFilesToUse[0] == 'u309.php') { $controller = new u309($registry, true); }
 	if($updateFilesToUse[0] == 'u310.php') { $controller = new u310($registry, true); }
+	if($updateFilesToUse[0] == 'u311.php') { $controller = new u311($registry, true); }
 }
 else
 {

@@ -169,3 +169,6 @@ Version history:
 	bottom_bar_tpl
 	slider_tpl
 3. Javascript for TAGs improved (now it can delete tags in the input lines by clicking them)
+- 3.1.1
+1. Uploaded to GitHub
+2. Updated XAMP demo: http://sparkframe.id.lv/xampp/xampp_sf311_demo.zip

@@ -1,13 +1,13 @@
 <?php
 /**
- * SparkFrame CMS - by Igor Kreknin
- *
- * @package		SparkFrame CMS
- * @author		Igor Kreknin
- * @copyright	Copyright (c) 2010, Igor Kreknin
- * @license		GNU GPL v3
- * @link		http://sparkframe.id.lv
- * @since		Version 3.0
+* SparkFrame CMS - by Igors Kreknins
+*
+* @package		SparkFrame CMS
+* @author		Igors Kreknins
+* @copyright	Copyright (c) 2010, Igors Kreknins
+* @license		GNU GPL v3
+* @link			http://sparkframe.id.lv
+* @since		Version 3
  */
 
 session_start();

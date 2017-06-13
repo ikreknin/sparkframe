@@ -1,14 +1,14 @@
 <?php
 
 /**
-* SparkFrame CMS - by Igor Kreknin
+* SparkFrame CMS - by Igors Kreknins
 *
 * @package		SparkFrame CMS
-* @author		Igor Kreknin
-* @copyright	Copyright (c) 2010, Igor Kreknin
+* @author		Igors Kreknins
+* @copyright	Copyright (c) 2010, Igors Kreknins
 * @license		GNU GPL v3
-* @link		http://sparkframe.com
-* @since		Version 2.0
+* @link			http://sparkframe.id.lv
+* @since		Version 3
 */
 session_start();
 error_reporting(0);
@@ -53,6 +53,9 @@ $registry->loadWidget('latest_articles_frontpage_widget', 'latest_articles_front
 $registry->loadWidget('latest_tweets_widget', 'latest_tweets_widget');
 $registry->loadWidget('elastislide_widget', 'elastislide_widget');
 $registry->loadWidget('accessible_mega_menu_widget', 'accessible_mega_menu_widget');
+$registry->loadWidget('jssorslider_widget', 'jssorslider_widget');
+	$registry->loadWidget('article_tags_widget', 'article_tags_widget');
+	$registry->loadWidget('tagcloud_widget', 'tagcloud_widget');
 
 $sys_cms = '1';
 if ($_SESSION['cms_sys'] != '')
@@ -88,8 +91,8 @@ if ($registry->library('db')->numRows() == 1)
 	}
 }
 $registry->library('db')->setCacheOn($registry->setting('settings_cached'));
-$registry->set('default', 'theme');
-$registry->set('default', 'admintheme');
+$registry->set('responsive', 'theme');
+$registry->set('simple', 'admintheme');
 $registry->getURLData();
 $activeControllers = array();
 $activeControllers[] = $registry->setting('settings_site0');
@@ -101,6 +104,7 @@ $activeControllers[] = $registry->setting('settings_forum0');
 $activeControllers[] = $registry->setting('settings_shop0');
 $activeControllers[] = 'cart';
 $activeControllers[] = $registry->setting('settings_saef0');
+$activeControllers[] = 'tag';
 $m = opendir(APPPATH . 'modules') or die($php_errormsg);
 while (false !== ($mf = readdir($m)))
 {
