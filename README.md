@@ -1,9 +1,6 @@
 # SparkFrame
 Another CMS
 
-## Under Construction
-
-
 ## Features
     PHP Framework
     Multiple site support
